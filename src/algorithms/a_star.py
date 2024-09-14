@@ -81,8 +81,9 @@ class AStarOSMnx:
                 return self.reconstruct_path(came_from, current), g_scores[current]
 
             for neighbor in self.graph.neighbors(current):
-                tentative_g_score = g_scores[current] + self.graph[current][neighbor][0]['length'] / 1000.0  # Convert meters to km
-
+                edge_length = self.graph.get_edge_data(current, neighbor).get('length', 0)  # Default to 0 if 'length' is missing
+                tentative_g_score = g_scores[current] + edge_length / 1000.0  # Convert meters to km
+                
                 if neighbor in closed_set:
                     continue
 
