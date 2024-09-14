@@ -6,11 +6,15 @@ authors = ["Sampsa Oinonen <sampsa.oinonen@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.10,<3.13"
 osmnx = "^1.9.4"
 matplotlib = "^3.9.2"
 scikit-learn = "^1.5.2"
+networkx = "^3.3"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
 
 [build-system]
 requires = ["poetry-core"]
