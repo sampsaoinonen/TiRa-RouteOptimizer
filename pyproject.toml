@@ -6,7 +6,9 @@ authors = ["Sampsa Oinonen <sampsa.oinonen@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.9,<3.13"
+osmnx = "^1.9.4"
+matplotlib = "^3.9.2"
 
 
 [build-system]
