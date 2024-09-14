@@ -11,7 +11,9 @@
 - Focused on writing clear docstrings and comments
 
 ### How has the project progressed?
-The project has progressed pretty good this week. The A* algorithm with Haversine heuristic has been successfully implemented and tested using the Helsinki OSMnx graph. Visualizations of the shortest path have been created with Matplotlib, and unit tests have been written to ensure the algorithm functions correctly. Comparisons between the A* algorithm and NetworkX’s Dijkstra have been integrated into the tests. Test coverage tracking has also been established.
+The A* algorithm with Haversine heuristic has been successfully implemented and tested using the Helsinki OSMnx graph. Visualizations of the shortest path have been created with Matplotlib, and unit tests have been written to ensure the algorithm functions correctly. Comparisons between the A* algorithm and NetworkX’s Dijkstra have been integrated into the tests. Test coverage tracking has also been established.
+
+However, I realized that the current solution, which relies on OSMnx and NetworkX graphs, goes against the course guidelines, which suggest not using a graph object. This will require changes to the code to comply with the instructions.
 
 ### What did I learn this week / today?
 - There are different ways to calculate distances between points, such as Manhattan, Euclidean, and Haversine...
@@ -22,6 +24,7 @@ The project has progressed pretty good this week. The A* algorithm with Haversin
 - Fringe Search is still under study and needs more focus.
 
 ### What will I do next?
+- Modify the solution to comply with the guidelines by avoiding graph objects and instead using a simpler       representation
 - Implement the Fringe Search algorithm
 - Research the technology to be used for the user interface
 
