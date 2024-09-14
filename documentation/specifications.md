@@ -9,8 +9,7 @@
 **In this project:**
   
 
--  **Primary Language**: Python will be used to implement the core algorithms (A*, Dijkstra, Jump Point Search, or Fringe Search), as well as handling the backend of the application.
-
+-  **Primary Language**: Python will be used to implement the core algorithms A* and Fringe Search, as well as handling the backend of the application.
   
 
 -  **Frontend**: The user interface (UI) may be developed using **React** with **JavaScript** for rendering and interactivity of the street network and route visualizations.
@@ -67,7 +66,7 @@
 
   
 
-- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of multiple pathfinding algorithms, which could include A*, Dijkstra, Jump Point Search, and Fringe Search, in terms of execution time and memory usage.
+- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of multiple pathfinding algorithms, which include A* and Fringe Search, in terms of execution time and memory usage.
 
   
 
@@ -85,7 +84,7 @@
 
   
 
-- The selected algorithm (A*, Dijkstra, JPS, or Fringe Search) will find the shortest path between the start and destination points.
+- The selected algorithm (A* or Fringe Search) will find the shortest path between the start and destination points.
 
   
 
@@ -97,7 +96,7 @@
 
   
 
-- Wikipedia articles on [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), [Jump Point Search](https://en.wikipedia.org/wiki/Jump_Point_Search), and [Fringe Search](https://en.wikipedia.org/wiki/Fringe_search) on understanding of these algorithms.
+- Wikipedia articles on [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), and [Fringe Search](https://en.wikipedia.org/wiki/Fringe_search) on understanding of these algorithms.
 
   
   
@@ -108,7 +107,7 @@
 
   
 
-- The core of this project is the **pathfinding algorithms**, specifically comparing algorithms such as A*, Dijkstra, Jump Point Search, or Fringe Search in terms of performance and effectiveness in solving the shortest path problem on a city street network.
+- The core of this project is the **pathfinding algorithms**, specifically comparing algorithms such as A* and Fringe Search in terms of performance and effectiveness in solving the shortest path problem on a city street network.
 
   
 

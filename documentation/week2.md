@@ -18,6 +18,7 @@ The project has progressed pretty good this week. The A* algorithm with Haversin
 - I gained a deeper understanding of several pathfinding algorithms.
 
 ### What was unclear or caused difficulties?
+- Integrating the complexities of OSMnx graphs with simplified NetworkX graphs 
 - Fringe Search is still under study and needs more focus.
 
 ### What will I do next?
