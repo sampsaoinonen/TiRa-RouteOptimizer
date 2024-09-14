@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+
+# Virtual environment directories
+.env/
+.venv/
+venv/
+ENV/
+
+# Python virtual environments created by Poetry
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code and PyCharm settings
+.vscode/
+.idea/
+
+# Matplotlib generated plot files (if you save them locally)
+*.png
+*.pdf
+*.svg
+
+# MacOS specific files
+.DS_Store
+
+# Logs and database files
+*.log
+*.sqlite3
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Ignore test output
+test-results/
+
+# Ignore OS generated files (Windows, macOS)
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
