@@ -41,6 +41,27 @@ class AStarOSMnx:
         a = math.sin(dLat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2)**2
         c = 2 * math.asin(math.sqrt(a))
         return r * c
+    
+    def get_edge_length(self, current, neighbor):
+        """
+        Gets the length of the edge between current and neighbor in kilometers.
+        
+        Args:
+            current (int): Current node ID.
+            neighbor (int): Neighbor node ID.
+        
+        Returns:
+            float: Edge length in kilometers (converted from meters if needed).
+        """
+        edge_data = self.graph.get_edge_data(current, neighbor)
+        
+        if isinstance(edge_data, dict):
+            if 'length' in edge_data:
+                return edge_data['length'] / 1000.0  # Convert meters to kilometers
+        # Handle OSMnx multi-edge graphs (parallel edges)
+            if 0 in edge_data:
+                return edge_data[0].get('length', 0) / 1000.0 
+        return 0.0  # Default to 0 if no length is found
 
     def find_path(self, start_node, goal_node):
         """
@@ -86,8 +107,8 @@ class AStarOSMnx:
                 return self.reconstruct_path(came_from, current), g_scores[current]
 
             for neighbor in self.graph.neighbors(current):
-                edge_length = self.graph.get_edge_data(current, neighbor).get('length', 0)  # Default to 0 if 'length' is missing
-                tentative_g_score = g_scores[current] + edge_length / 1000.0  # Convert meters to km
+                tentative_g_score = g_scores[current] + self.get_edge_length(current, neighbor)                
+
 
                 if neighbor in closed_set:
                     continue

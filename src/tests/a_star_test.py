@@ -10,6 +10,7 @@ class TestAStarOSMnx(unittest.TestCase):
         self.graph.add_edge(1, 2, length=1000.0)  # Distance in meters
         self.graph.add_edge(2, 3, length=2000.0)
         self.graph.add_edge(3, 4, length=1000.0)
+        self.graph.add_edge(1, 4, length=5000.0)
         
         # Add latitude and longitude attributes for testing
         self.graph.nodes[1]['x'], self.graph.nodes[1]['y'] = 60.1699, 24.9384
@@ -21,16 +22,17 @@ class TestAStarOSMnx(unittest.TestCase):
         self.astar = AStarOSMnx(self.graph)
 
     def test_find_path_astar(self):
-        # Test finding the shortest path using A* algorithm    
+        # Test finding the shortest path using A* algorithm
         path, length = self.astar.find_path(1, 4)
-        self.assertEqual(path, [1, 2, 3, 4])  
+        self.assertEqual(path, [1, 2, 3, 4])  # The shortest path is 1 -> 2 -> 3 -> 4
         self.assertAlmostEqual(length, 4.0, delta=0.01)
 
     def test_no_path_astar(self):
-        # Remove an edge to make the graph disconnected
+        # Remove edges to make the graph disconnected
+        self.graph.remove_edge(1, 4)
         self.graph.remove_edge(2, 3)
         path, length = self.astar.find_path(1, 4)
-        self.assertIsNone(path)
+        self.assertIsNone(path)  
 
     def test_compare_astar_dijkstra(self):
         # Test A* algorithm
@@ -46,14 +48,13 @@ class TestAStarOSMnx(unittest.TestCase):
 
     def test_start_node_not_in_graph(self):
         # Test when start node is not in the graph
-        path, length = self.astar.find_path(99, 4)  
-        self.assertIsNone(path)  
+        path, length = self.astar.find_path(99, 4)  # Node 99 is not in the graph
+        self.assertIsNone(path)  # Expect no path to be found
 
     def test_goal_node_not_in_graph(self):
         # Test when goal node is not in the graph
-        path, length = self.astar.find_path(1, 99)
-        self.assertIsNone(path)
+        path, length = self.astar.find_path(1, 99)  # Node 99 is not in the graph
+        self.assertIsNone(path)  # Expect no path to be found
 
 if __name__ == '__main__':
     unittest.main()
-
