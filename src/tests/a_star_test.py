@@ -46,13 +46,13 @@ class TestAStarOSMnx(unittest.TestCase):
 
     def test_start_node_not_in_graph(self):
         # Test when start node is not in the graph
-        path, length = self.astar.find_path(99, 4)  # Node 99 is not in the graph
-        self.assertIsNone(path)  # Should return None
+        path, length = self.astar.find_path(99, 4)  
+        self.assertIsNone(path)  
 
     def test_goal_node_not_in_graph(self):
         # Test when goal node is not in the graph
-        path, length = self.astar.find_path(1, 99)  # Node 99 is not in the graph
-        self.assertIsNone(path)  # Should return None
+        path, length = self.astar.find_path(1, 99)
+        self.assertIsNone(path)
 
 if __name__ == '__main__':
     unittest.main()
