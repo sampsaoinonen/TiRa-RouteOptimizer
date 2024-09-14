@@ -57,6 +57,11 @@ class AStarOSMnx:
                 If no path is found, returns (None, float('inf')).
 
         """
+        
+        # Check if start_node and goal_node are in the graph
+        if start_node not in self.graph.nodes or goal_node not in self.graph.nodes:
+            return None, float('inf')
+        
         g_scores = {node: float("inf") for node in self.graph.nodes}
         g_scores[start_node] = 0
 
@@ -83,7 +88,7 @@ class AStarOSMnx:
             for neighbor in self.graph.neighbors(current):
                 edge_length = self.graph.get_edge_data(current, neighbor).get('length', 0)  # Default to 0 if 'length' is missing
                 tentative_g_score = g_scores[current] + edge_length / 1000.0  # Convert meters to km
-                
+
                 if neighbor in closed_set:
                     continue
 
