@@ -44,6 +44,16 @@ class TestAStarOSMnx(unittest.TestCase):
         self.assertEqual(a_star_path, dijkstra_path)
         self.assertAlmostEqual(a_star_length, dijkstra_length, delta=0.01)
 
+    def test_start_node_not_in_graph(self):
+        # Test when start node is not in the graph
+        path, length = self.astar.find_path(99, 4)  # Node 99 is not in the graph
+        self.assertIsNone(path)  # Should return None
+
+    def test_goal_node_not_in_graph(self):
+        # Test when goal node is not in the graph
+        path, length = self.astar.find_path(1, 99)  # Node 99 is not in the graph
+        self.assertIsNone(path)  # Should return None
+
 if __name__ == '__main__':
     unittest.main()
 
