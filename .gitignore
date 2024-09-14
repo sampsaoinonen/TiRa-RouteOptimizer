@@ -58,3 +58,6 @@ Desktop.ini
 .DS_Store
 *.swp
 *~
+
+# Ignore cache directory and all its contents
+cache/
