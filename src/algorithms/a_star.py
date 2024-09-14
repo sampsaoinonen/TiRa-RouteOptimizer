@@ -1,27 +1,69 @@
 import heapq
+import math
 
-class AStar:
-    def __init__(self, nodes):
-        self.nodes = nodes
-        self.graph = {node: [] for node in nodes}
+class AStarOSMnx:
+    """A* (A-star) algorithm implementation using OSMnx graph data.
+    
+    This class provides methods to find the shortest path between nodes in a graph using the
+    A* algorithm. It uses the Haversine distance for the heuristic function to estimate the
+    distance between geographic points.
 
-    def add_edge(self, node_a, node_b, weight):
-        # Add an edge from node_a to node_b with weight
-        self.graph[node_a].append((node_b, weight))
+    Attributes:
+        graph (networkx.Graph): The street network graph from OSMnx.
+    """
+    def __init__(self, graph):
+        """Initializes AStarOSMnx with the given graph.
 
-    def heuristics(self, node, goal):        
-        # Euclidean distance
-        return ((node[0] - goal[0]) ** 2 + (node[1] - goal[1]) ** 2) ** 0.5
+        Args:
+            graph (networkx.Graph): A NetworkX graph representing the street network.
+        """
+        self.graph = graph
+    
+    def haversine(self, lat1, lon1, lat2, lon2):
+        """
+        Calculates the Haversine distance between two geographic points.
+        https://rosettacode.org/wiki/Haversine_formula
+        
+        Args:
+            lat1 (float): Latitude of the first point.
+            lon1 (float): Longitude of the first point.
+            lat2 (float): Latitude of the second point.
+            lon2 (float): Longitude of the second point.
+
+        Returns:
+            float: The distance between the two points in kilometers.
+        """
+        r = 6372.8  # Earth's radius in kilometers
+        dLat = math.radians(lat2 - lat1)
+        dLon = math.radians(lon2 - lon1)
+        lat1 = math.radians(lat1)
+        lat2 = math.radians(lat2)
+        a = math.sin(dLat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2)**2
+        c = 2 * math.asin(math.sqrt(a))
+        return r * c
 
     def find_path(self, start_node, goal_node):
-        # Initialize g- and f-scores
-        g_scores = {node: float("inf") for node in self.nodes}
+        """
+        Find the shortest path using the A* algorithm.
+
+        Args:
+            start_node (int): The node ID where the path starts.
+            goal_node (int): The node ID where the path ends.
+        
+        Returns:
+            tuple:
+                list: The shortest path as a list of node IDs, from start_node to goal_node.
+                float: The total distance of the path in kilometers.
+                If no path is found, returns (None, float('inf')).
+
+        """
+        g_scores = {node: float("inf") for node in self.graph.nodes}
         g_scores[start_node] = 0
 
-        f_scores = {node: float("inf") for node in self.nodes}
-        f_scores[start_node] = self.heuristics(start_node, goal_node)
+        f_scores = {node: float("inf") for node in self.graph.nodes}
+        f_scores[start_node] = self.haversine(self.graph.nodes[start_node]['y'], self.graph.nodes[start_node]['x'], 
+                                              self.graph.nodes[goal_node]['y'], self.graph.nodes[goal_node]['x'])
 
-        # Initialize open list and closed set
         open_list = []
         heapq.heappush(open_list, (f_scores[start_node], start_node))
         closed_set = set()
@@ -31,65 +73,42 @@ class AStar:
         while open_list:
             current = heapq.heappop(open_list)[1]
 
-            # If the node has already been processed, skip it
             if current in closed_set:
                 continue
             closed_set.add(current)
 
             if current == goal_node:
-                return self.reconstruct_path(came_from, current, g_scores[goal_node])
+                return self.reconstruct_path(came_from, current), g_scores[current]
 
-            for neighbor, weight in self.graph[current]:
-                tentative_g_score = g_scores[current] + weight
+            for neighbor in self.graph.neighbors(current):
+                tentative_g_score = g_scores[current] + self.graph[current][neighbor][0]['length'] / 1000.0  # Convert meters to km
 
                 if neighbor in closed_set:
-                    continue  # Skip neighbors that are already processed
+                    continue
 
                 if tentative_g_score < g_scores[neighbor]:
-                    # Found a better path to the neighbor
                     came_from[neighbor] = current
                     g_scores[neighbor] = tentative_g_score
-                    f_scores[neighbor] = tentative_g_score + self.heuristics(neighbor, goal_node)
+                    f_scores[neighbor] = tentative_g_score + self.haversine(self.graph.nodes[neighbor]['y'], self.graph.nodes[neighbor]['x'], 
+                                                                            self.graph.nodes[goal_node]['y'], self.graph.nodes[goal_node]['x'])
                     heapq.heappush(open_list, (f_scores[neighbor], neighbor))
 
-        return None  # No path was found
+        return None, float("inf")
 
-    def reconstruct_path(self, came_from, current, total_distance):
-        # Build the path from start to goal
+    def reconstruct_path(self, came_from, current):
+        """
+        Reconstruct the shortest path from the came_from dictionary.
+
+        Args:
+            came_from (dict): A dictionary mapping each node to the node it came from.
+            current (int): The current node ID (usually the goal node).
+
+        Returns:
+            list: The reconstructed shortest path as a list of node IDs, from start to goal.
+        """
         path = [current]
         while current in came_from:
             current = came_from[current]
             path.append(current)
         path.reverse()
-        return path, total_distance
-
-# Example usage
-nodes = [
-    (0, 0), (0, 1), (0, 2),
-    (1, 0), (1, 1), (1, 2),
-    (2, 0), (2, 1), (2, 2)
-]
-astar = AStar(nodes)
-
-# Add edges between nodes
-astar.add_edge((0, 0), (0, 1), 1)
-astar.add_edge((0, 1), (0, 2), 1)
-astar.add_edge((0, 0), (1, 0), 1)
-astar.add_edge((1, 0), (1, 1), 1)
-astar.add_edge((1, 1), (1, 2), 1)
-astar.add_edge((0, 2), (1, 2), 1)
-astar.add_edge((1, 2), (2, 2), 1)
-astar.add_edge((2, 2), (2, 1), 1)
-astar.add_edge((2, 1), (2, 0), 1)
-
-start_node = (0, 0)
-goal_node = (2, 2)
-
-result = astar.find_path(start_node, goal_node)
-
-if result:
-    path, distance = result
-    print("Shortest path:", path)
-    print("Length of the shortest path:", distance)
-else:
-    print("No path found.")
+        return path
