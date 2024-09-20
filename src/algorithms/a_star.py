@@ -1,5 +1,5 @@
 import heapq
-import math
+from utils.graph_utils import GraphUtils
 
 class AStarOSMnx:
     """A* (A-star) algorithm implementation using OSMnx graph data.
@@ -18,50 +18,6 @@ class AStarOSMnx:
             graph (networkx.Graph): A NetworkX graph representing the street network.
         """
         self.graph = graph
-    
-    def haversine(self, lat1, lon1, lat2, lon2):
-        """
-        Calculates the Haversine distance between two geographic points.
-        https://rosettacode.org/wiki/Haversine_formula
-        
-        Args:
-            lat1 (float): Latitude of the first point.
-            lon1 (float): Longitude of the first point.
-            lat2 (float): Latitude of the second point.
-            lon2 (float): Longitude of the second point.
-
-        Returns:
-            float: The distance between the two points in kilometers.
-        """
-        r = 6372.8  # Earth's radius in kilometers
-        dLat = math.radians(lat2 - lat1)
-        dLon = math.radians(lon2 - lon1)
-        lat1 = math.radians(lat1)
-        lat2 = math.radians(lat2)
-        a = math.sin(dLat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2)**2
-        c = 2 * math.asin(math.sqrt(a))
-        return r * c
-    
-    def get_edge_length(self, current, neighbor):
-        """
-        Gets the length of the edge between current and neighbor in kilometers.
-        
-        Args:
-            current (int): Current node ID.
-            neighbor (int): Neighbor node ID.
-        
-        Returns:
-            float: Edge length in kilometers (converted from meters if needed).
-        """
-        edge_data = self.graph.get_edge_data(current, neighbor)
-        
-        if isinstance(edge_data, dict):
-            if 'length' in edge_data:
-                return edge_data['length'] / 1000.0  # Convert meters to kilometers
-        # Handle OSMnx multi-edge graphs (parallel edges)
-            if 0 in edge_data:
-                return edge_data[0].get('length', 0) / 1000.0 
-        return 0.0  # Default to 0 if no length is found
 
     def find_path(self, start_node, goal_node):
         """
@@ -87,8 +43,7 @@ class AStarOSMnx:
         g_scores[start_node] = 0
 
         f_scores = {node: float("inf") for node in self.graph.nodes}
-        f_scores[start_node] = self.haversine(self.graph.nodes[start_node]['y'], self.graph.nodes[start_node]['x'], 
-                                              self.graph.nodes[goal_node]['y'], self.graph.nodes[goal_node]['x'])
+        f_scores[start_node] = GraphUtils.haversine(self.graph, start_node, goal_node)
 
         open_list = []
         heapq.heappush(open_list, (f_scores[start_node], start_node))
@@ -107,8 +62,7 @@ class AStarOSMnx:
                 return self.reconstruct_path(came_from, current), g_scores[current]
 
             for neighbor in self.graph.neighbors(current):
-                tentative_g_score = g_scores[current] + self.get_edge_length(current, neighbor)                
-
+                tentative_g_score = g_scores[current] + GraphUtils.get_edge_length(self.graph, current, neighbor)                
 
                 if neighbor in closed_set:
                     continue
@@ -116,8 +70,7 @@ class AStarOSMnx:
                 if tentative_g_score < g_scores[neighbor]:
                     came_from[neighbor] = current
                     g_scores[neighbor] = tentative_g_score
-                    f_scores[neighbor] = tentative_g_score + self.haversine(self.graph.nodes[neighbor]['y'], self.graph.nodes[neighbor]['x'], 
-                                                                            self.graph.nodes[goal_node]['y'], self.graph.nodes[goal_node]['x'])
+                    f_scores[neighbor] = tentative_g_score + GraphUtils.haversine(self.graph, neighbor, goal_node) 
                     heapq.heappush(open_list, (f_scores[neighbor], neighbor))
 
         return None, float("inf")

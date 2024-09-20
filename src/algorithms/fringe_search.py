@@ -1,4 +1,4 @@
-import math
+from utils.graph_utils import GraphUtils
 
 class FringeSearchOSMnx:
     """ Fringe Search algorithm implementation using OSMnx graph data.
@@ -17,52 +17,7 @@ class FringeSearchOSMnx:
         Args:
             graph (networkx.Graph): A NetworkX graph representing the street network.
         """
-        self.graph = graph
-
-    def haversine(self, node1, node2):
-        """ Calculates the Haversine distance between two geographic points.
-        https://rosettacode.org/wiki/Haversine_formula
-        
-        Args:
-            node1 (int): The first node ID.
-            node2 (int): The second node ID.
-
-        Returns:
-            float: The distance between the two points in kilometers.
-        """
-        lat1 = self.graph.nodes[node1]['y']
-        lon1 = self.graph.nodes[node1]['x']
-        lat2 = self.graph.nodes[node2]['y']
-        lon2 = self.graph.nodes[node2]['x']
-        r = 6371.0  # Earth's radius in kilometers
-        dLat = math.radians(lat2 - lat1)
-        dLon = math.radians(lon2 - lon1)
-        lat1 = math.radians(lat1)
-        lat2 = math.radians(lat2)
-        a = math.sin(dLat / 2) ** 2 + \
-            math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2) ** 2
-        c = 2 * math.asin(math.sqrt(a))
-        return r * c
-
-    def get_edge_length(self, current, neighbor):
-        """ Gets the length of the edge between current and neighbor in kilometers.
-        
-        Args:
-            current (int): Current node ID.
-            neighbor (int): Neighbor node ID.
-        
-        Returns:
-            float: Edge length in kilometers (converted from meters if needed).
-        """
-        edge_data = self.graph.get_edge_data(current, neighbor)
-        
-        if isinstance(edge_data, dict):
-            if 'length' in edge_data:
-                return edge_data['length'] / 1000.0  # Convert meters to kilometers
-        # Handle OSMnx multi-edge graphs (parallel edges)
-            if 0 in edge_data:
-                return edge_data[0].get('length', 0) / 1000.0 
-        return 0.0  # Default to 0 if no length is found
+        self.graph = graph    
 
     def find_path(self, start_node, goal_node):
         """ Finds the shortest path from start_node to goal_node using the Fringe Search algorithm.
@@ -80,7 +35,7 @@ class FringeSearchOSMnx:
         # Initialize fringe and cache
         fringe = [start_node]  
         cache = {start_node: (0, None)}
-        flimit = self.haversine(start_node, goal_node)
+        flimit = GraphUtils.haversine(self.graph, start_node, goal_node)
         found = False
 
         while not found and fringe:
@@ -90,7 +45,7 @@ class FringeSearchOSMnx:
             while i < len(fringe):
                 node = fringe[i]
                 g, parent = cache[node]
-                h = self.haversine(node, goal_node)
+                h = GraphUtils.haversine(self.graph, node, goal_node)
                 f = g + h
 
                 if f > flimit:
@@ -105,7 +60,7 @@ class FringeSearchOSMnx:
                 # Expand neighbors of the current node from right to left
                 neighbors = list(self.graph.neighbors(node))
                 for neighbor in reversed(neighbors):
-                    tentative_g = g + self.get_edge_length(node, neighbor)
+                    tentative_g = g + GraphUtils.get_edge_length(self.graph, node, neighbor)
 
                     if neighbor in cache and tentative_g >= cache[neighbor][0]:
                         continue

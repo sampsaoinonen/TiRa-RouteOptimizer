@@ -1,6 +1,6 @@
 from algorithms.a_star import AStarOSMnx
 from algorithms.fringe_search import FringeSearchOSMnx
-from osm_utils import download_osm_graph, get_nearest_node
+from utils.osm_utils import download_osm_graph, get_nearest_node
 import osmnx as ox
 import matplotlib.pyplot as plt
 import time
