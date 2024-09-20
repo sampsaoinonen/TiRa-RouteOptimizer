@@ -12,6 +12,7 @@ This project is part of the **Helsinki University course**: _Aineopintojen harjo
 
 ## Documentation
 - [Specifications](./documentation/specifications.md)
+- [Testing](./documentation/testing.md)
 
 ## Weekly Reports
 - [Week 1](./documentation/week1.md)
