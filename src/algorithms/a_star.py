@@ -20,8 +20,7 @@ class AStarOSMnx:
         self.graph = graph
 
     def find_path(self, start_node, goal_node):
-        """
-        Find the shortest path using the A* algorithm.
+        """ Find the shortest path using the A* algorithm.
 
         Args:
             start_node (int): The node ID where the path starts.
@@ -34,11 +33,11 @@ class AStarOSMnx:
                 If no path is found, returns (None, float('inf')).
 
         """
-        
+
         # Check if start_node and goal_node are in the graph
         if start_node not in self.graph.nodes or goal_node not in self.graph.nodes:
             return None, float('inf')
-        
+
         g_scores = {node: float("inf") for node in self.graph.nodes}
         g_scores[start_node] = 0
 
@@ -62,7 +61,8 @@ class AStarOSMnx:
                 return self.reconstruct_path(came_from, current), g_scores[current]
 
             for neighbor in self.graph.neighbors(current):
-                tentative_g_score = g_scores[current] + GraphUtils.get_edge_length(self.graph, current, neighbor)                
+                tentative_g_score = (g_scores[current] +
+                                     GraphUtils.get_edge_length(self.graph, current, neighbor))
 
                 if neighbor in closed_set:
                     continue
@@ -70,7 +70,8 @@ class AStarOSMnx:
                 if tentative_g_score < g_scores[neighbor]:
                     came_from[neighbor] = current
                     g_scores[neighbor] = tentative_g_score
-                    f_scores[neighbor] = tentative_g_score + GraphUtils.haversine(self.graph, neighbor, goal_node) 
+                    f_scores[neighbor] = (tentative_g_score +
+                                        GraphUtils.haversine(self.graph, neighbor, goal_node))
                     heapq.heappush(open_list, (f_scores[neighbor], neighbor))
 
         return None, float("inf")

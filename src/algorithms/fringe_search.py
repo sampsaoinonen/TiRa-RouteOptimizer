@@ -17,7 +17,7 @@ class FringeSearchOSMnx:
         Args:
             graph (networkx.Graph): A NetworkX graph representing the street network.
         """
-        self.graph = graph    
+        self.graph = graph
 
     def find_path(self, start_node, goal_node):
         """ Finds the shortest path from start_node to goal_node using the Fringe Search algorithm.
@@ -33,7 +33,7 @@ class FringeSearchOSMnx:
                 If no path is found, returns (None, float('inf')).
         """
         # Initialize fringe and cache
-        fringe = [start_node]  
+        fringe = [start_node]
         cache = {start_node: (0, None)}
         flimit = GraphUtils.haversine(self.graph, start_node, goal_node)
         found = False
@@ -44,7 +44,7 @@ class FringeSearchOSMnx:
 
             while i < len(fringe):
                 node = fringe[i]
-                g, parent = cache[node]
+                g, _ = cache[node]
                 h = GraphUtils.haversine(self.graph, node, goal_node)
                 f = g + h
 
@@ -67,14 +67,14 @@ class FringeSearchOSMnx:
 
                     if neighbor in fringe:
                         fringe.remove(neighbor)
-                    
+
                     fringe.insert(i + 1, neighbor)
-                    cache[neighbor] = (tentative_g, node)                
-                
-                fringe.pop(i)                
+                    cache[neighbor] = (tentative_g, node)
+
+                fringe.pop(i)
 
             if not found:
-                if fmin == float('inf'):                    
+                if fmin == float('inf'):
                     break
                 flimit = fmin  # Update flimit for the next iteration
 
@@ -82,8 +82,8 @@ class FringeSearchOSMnx:
             path = self.reconstruct_path(cache, goal_node)
             total_length = cache[goal_node][0]
             return path, total_length
-        else:
-            return None, float('inf')
+
+        return None, float('inf')
 
     def reconstruct_path(self, cache, current):
         """ Reconstructs the path from the start node to the current node.
