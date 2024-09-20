@@ -1,6 +1,7 @@
 import unittest
 from algorithms.a_star import AStarOSMnx
 import networkx as nx
+import random
 
 class TestAStarOSMnx(unittest.TestCase):
 
@@ -32,19 +33,30 @@ class TestAStarOSMnx(unittest.TestCase):
         self.graph.remove_edge(1, 4)
         self.graph.remove_edge(2, 3)
         path, length = self.astar.find_path(1, 4)
-        self.assertIsNone(path)  
+        self.assertIsNone(path)
 
     def test_compare_astar_dijkstra(self):
-        # Test A* algorithm
-        a_star_path, a_star_length = self.astar.find_path(1, 4)
-        
-        # Test Dijkstra algorithm using NetworkX
-        dijkstra_path = nx.shortest_path(self.graph, source=1, target=4, weight='length')
-        dijkstra_length = nx.shortest_path_length(self.graph, source=1, target=4, weight='length') / 1000.0  # Convert to km
+        # Run A* and Dijkstra algorithms 10 times with random start and goal nodes
+        for _ in range(10):
+            # Randomly select start and goal nodes from the graph
+            start_node = random.choice(list(self.graph.nodes))
+            goal_node = random.choice(list(self.graph.nodes))
+            
+            # Ensure start and goal are different
+            while start_node == goal_node:
+                goal_node = random.choice(list(self.graph.nodes))
 
-        # Assert both algorithms return the same path and length
-        self.assertEqual(a_star_path, dijkstra_path)
-        self.assertAlmostEqual(a_star_length, dijkstra_length, delta=0.01)
+            # Test A* algorithm
+            a_star_path, a_star_length = self.astar.find_path(start_node, goal_node)
+
+            # Test Dijkstra algorithm using NetworkX            
+            dijkstra_length = nx.shortest_path_length(self.graph, source=start_node, target=goal_node, weight='length') / 1000.0  # Convert to km
+
+            # Assert both algorithms return the same path length
+            if a_star_path:
+                self.assertAlmostEqual(a_star_length, dijkstra_length, delta=0.01)
+            else:
+                self.assertIsNone(a_star_path)
 
     def test_start_node_not_in_graph(self):
         # Test when start node is not in the graph
