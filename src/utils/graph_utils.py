@@ -19,7 +19,7 @@ class GraphUtils:
         lon1 = graph.nodes[node1]['x']
         lat2 = graph.nodes[node2]['y']
         lon2 = graph.nodes[node2]['x']
-        r = 6372.8  # Earth's radius in kilometers
+        r = 6371  # Earth's radius in kilometers
         d_lat = math.radians(lat2 - lat1)
         d_lon = math.radians(lon2 - lon1)
         lat1 = math.radians(lat1)
@@ -27,6 +27,47 @@ class GraphUtils:
         a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_lon / 2) ** 2
         c = 2 * math.asin(math.sqrt(a))
         return r * c
+    
+    @staticmethod
+    def euclidean(graph, node1, node2):
+        """ Calculates the Euclidean distance between two points.
+        
+        Args:
+            node1 (int): ID of the first node.
+            node2 (int): ID of the second node.
+
+        Returns:
+            float: The Euclidean distance between the two points.
+        """
+        x1 = graph.nodes[node1]['x']
+        y1 = graph.nodes[node1]['y']
+        x2 = graph.nodes[node2]['x']
+        y2 = graph.nodes[node2]['y']
+
+        # Euclidean distance formula
+        distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        return distance
+
+    @staticmethod
+    def manhattan(graph, node1, node2):
+        """ Calculates the Manhattan distance between two points.
+        
+        Args:
+            node1 (int): ID of the first node.
+            node2 (int): ID of the second node.
+
+        Returns:
+            float: The Manhattan distance between the two points.
+        """
+        x1 = graph.nodes[node1]['x']
+        y1 = graph.nodes[node1]['y']
+        x2 = graph.nodes[node2]['x']
+        y2 = graph.nodes[node2]['y']
+
+        # Manhattan distance formula
+        distance = abs(x2 - x1) + abs(y2 - y1)
+        return distance
+
 
     @staticmethod
     def get_edge_length(graph, current, neighbor):
