@@ -45,7 +45,7 @@ def run_algorithm(algorithm_class, graph, start_node, goal_node, algorithm_name)
         # Save the path as an image
         filepath = f"shortest_path_{algorithm_name.lower().replace(' ', '_')}.png"
         fig.savefig(filepath)
-        print(f"{algorithm_name} Route image saved to {filepath}")        
+        print(f"{algorithm_name} Route image saved to {filepath}")
 
         # Show the path plot
         plt.show()
@@ -105,12 +105,13 @@ def main():
     # Download the graph for Helsinki, Finland
     place_name = 'Helsinki, Finland'
     graph = download_osm_graph(place_name)
-    
+
     # Get user choice
     print("Choose an option:")
     print("1. Use predefined start and goal points (Lauttasaari -> Puroniityntie).")
     print("2. Use random start and goal points in Helsinki.")
-    print("3. Input your own points for start and goal coordinates. (if coordinates are not in Helsinki,")
+    print("3. Input your own points for start and goal coordinates. "
+    "(if coordinates are not in Helsinki,")
     print("   the program will find the nearest nodes)")
     print()
 
@@ -139,7 +140,7 @@ def main():
         goal_node = get_nearest_node(graph, goal_lat, goal_lon)
     else:
         print("Invalid choice. Exiting.")
-        return    
+        return
 
     # Run A* algorithm
     path_a_star, astar_time = run_algorithm(

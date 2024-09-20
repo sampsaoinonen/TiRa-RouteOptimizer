@@ -27,7 +27,7 @@ class GraphUtils:
         a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_lon / 2) ** 2
         c = 2 * math.asin(math.sqrt(a))
         return r * c
-    
+
     @staticmethod
     def euclidean(graph, node1, node2):
         """ Calculates the Euclidean distance between two points.
