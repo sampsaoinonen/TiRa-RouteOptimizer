@@ -32,6 +32,10 @@ class FringeSearchOSMnx:
                 float: The total distance of the path in kilometers.
                 If no path is found, returns (None, float('inf')).
         """
+        # Check if start_node and goal_node are in the graph
+        if start_node not in self.graph.nodes or goal_node not in self.graph.nodes:
+            return None, float('inf')
+
         # Initialize fringe and cache
         fringe = [start_node]
         cache = {start_node: (0, None)}
