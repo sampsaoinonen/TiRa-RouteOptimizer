@@ -4,9 +4,9 @@ def download_osm_graph(place_name, network_type='drive'):
     """ Downloads the OSMnx graph for the specified location.
 
     Args:
-        place_name (str): Name of the place to download the graph for (e.g., 'Helsinki, Finland').
-        network_type (str): The type of network to download (e.g., 'drive' for car-accessible roads). 
-                            Defaults to 'drive'.
+        place_name (str): Name of the place to download the graph for (e.g., 'Helsinki, Finland')
+        network_type (str): The type of network to download (e.g., 'drive' for car-accessible roads)
+                            Defaults to 'drive'
 
     Returns:
         networkx.Graph: The downloaded OSMnx graph.

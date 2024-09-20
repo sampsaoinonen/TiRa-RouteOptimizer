@@ -20,11 +20,11 @@ class GraphUtils:
         lat2 = graph.nodes[node2]['y']
         lon2 = graph.nodes[node2]['x']
         r = 6372.8  # Earth's radius in kilometers
-        dLat = math.radians(lat2 - lat1)
-        dLon = math.radians(lon2 - lon1)
+        d_lat = math.radians(lat2 - lat1)
+        d_lon = math.radians(lon2 - lon1)
         lat1 = math.radians(lat1)
         lat2 = math.radians(lat2)
-        a = math.sin(dLat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2) ** 2
+        a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_lon / 2) ** 2
         c = 2 * math.asin(math.sqrt(a))
         return r * c
 
