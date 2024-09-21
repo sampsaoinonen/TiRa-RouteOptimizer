@@ -26,6 +26,7 @@ Both algorithms The A* algorithm and Fringe Search with Haversine heuristics in 
 ### What will I do next?
 - Research if Fringe Search can be optimized more
 - Consider developing a graphical user interface
+- Compare the impact of different heuristics(Manhattan, Euclidean, and Haversine) on results and performance
 
 ### Hours spent on the project this week:
 
