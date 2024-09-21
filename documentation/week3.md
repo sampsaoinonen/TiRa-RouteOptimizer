@@ -1,4 +1,4 @@
-# Weekly Report 2
+# Weekly Report 3
 
 ### What did I do this week?
 - Studied Fringe Search
