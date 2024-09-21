@@ -35,6 +35,13 @@ class TestAStarOSMnx(unittest.TestCase):
         path, length = self.astar.find_path(1, 4)
         self.assertIsNone(path)
 
+    def test_multiple_shortest_paths(self):
+        # Test the case where multiple shortest paths exist
+        self.graph.add_edge(2, 4, length=3000.0)  # Another equally short path
+        path, length = self.astar.find_path(1, 4)
+        self.assertIn(path, [[1, 2, 3, 4], [1, 2, 4]])
+        self.assertAlmostEqual(length, 4.0, delta=0.01)
+
     def test_compare_astar_dijkstra(self):
         # Run A* and Dijkstra algorithms 10 times with random start and goal nodes
         for _ in range(10):
@@ -67,6 +74,30 @@ class TestAStarOSMnx(unittest.TestCase):
         # Test when goal node is not in the graph
         path, length = self.astar.find_path(1, 99)  # Node 99 is not in the graph
         self.assertIsNone(path)  # Expect no path to be found
+
+    def test_single_node_graph(self):
+        # Test the case where the graph contains only one node
+        graph = nx.Graph()
+        graph.add_node(1, x=60.1699, y=24.9384)
+        astar = AStarOSMnx(graph)
+        path, length = astar.find_path(1, 1)
+        self.assertEqual(path, [1])
+        self.assertAlmostEqual(length, 0.0)
+
+    def test_cycle_in_graph(self):
+        # Test handling of a cycle in the graph
+        self.graph.add_edge(4, 1, length=500.0)  # Create a cycle with a shorter direct path
+        path, length = self.astar.find_path(1, 4)
+        
+        # Expect the algorithm to take the shorter path [1, 4]
+        self.assertEqual(path, [1, 4])
+        self.assertAlmostEqual(length, 0.5, delta=0.01)  # Total length is 500 meters (0.5 km)
+
+    def test_no_weights_on_edges(self):
+        # Test the case where some edges have no weight assigned
+        self.graph.add_edge(2, 4)  # No length assigned
+        path, length = self.astar.find_path(1, 4)
+        self.assertEqual(path, [1, 2, 4])
 
 if __name__ == '__main__':
     unittest.main()
