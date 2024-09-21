@@ -17,6 +17,7 @@ This project is part of the **Helsinki University course**: _Aineopintojen harjo
 ## Weekly Reports
 - [Week 1](./documentation/week1.md)
 - [Week 2](./documentation/week2.md)
+- [Week 3](./documentation/week3.md)
 
 ## Installation
 
