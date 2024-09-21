@@ -14,11 +14,11 @@ The tests focus on verifying the behavior of graph traversal algorithms (A* and 
 
 | File                          | Stmts | Miss | Branch | BrPart | Cover | Missing        |
 |-------------------------------|-------|------|--------|--------|-------|----------------|
-| src/algorithms/a_star.py       | 40    | 1    | 20     | 2      | 95%   | 57, 70->63     |
+| src/algorithms/a_star.py       | 40    | 1    | 20     | 1      | 97%   | 57             |
 | src/algorithms/fringe_search.py| 52    | 0    | 24     | 0      | 100%  | -              |
-| src/utils/graph_utils.py       | 41    | 0    | 14     | 1      | 98%   | 89->91         |
+| src/utils/graph_utils.py       | 41    | 0    | 14     | 0      | 100%   | -         |
 | src/utils/osm_utils.py         | 5     | 0    | 0      | 0      | 100%  | -              |
-| **TOTAL**                      | **138** | **1**  | **58**   | **3**    | **98%** | -              |
+| **TOTAL**                      | **138** | **1**  | **58**   | **3**    | **99%** | -              |
 
 
 
@@ -29,6 +29,11 @@ The tests focus on verifying the behavior of graph traversal algorithms (A* and 
 - **Valid Pathfinding**: Tested A* and Fringe Search for finding the shortest path on a Helsinki-based graph (node 1 to node 4). Verified path and total length.
 - **Disconnected Graph**: Removed edges and verified that algorithms handle cases with no valid path.
 - **Non-existent Nodes**: Tested scenarios where start or goal nodes are missing from the graph.
+- **Handling Cycles**: Tested if both algorithms correctly handle cycles in the graph, ensuring they return the shortest path despite the presence of loops.
+- **Single Node Graph**: Verified that A* and Fringe Search return the correct result when the graph contains only a single node.
+- **Multiple Shortest Paths**: Tested how the algorithms behave when multiple equally short paths exist between the start and goal nodes.
+- **No Weights on Edges**: Tested the algorithms' behavior when edges without assigned weights are present.
+
 
 #### Comparison to Dijkstra:
 
@@ -48,6 +53,7 @@ The tests focus on verifying the behavior of graph traversal algorithms (A* and 
 ### How to Repeat the Tests
 
 Tests can be executed with the following command:
+
 ```bash
 poetry run pytest src
 ```

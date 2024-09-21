@@ -40,19 +40,11 @@
 
   
 
--  **Algorithms will be chosen from these**:
+-  **Algorithms used**:
 
   
 
 -  **A***: Pathfinding algorithm that combines Dijkstra’s shortest path algorithm with a heuristic to guide the search.
-
-  
-
--  **Dijkstra**: Widely used algorithm that finds the shortest path from a source node to all other nodes in a graph, without a heuristic.
-
-  
-
--  **Jump Point Search (JPS)**: An optimization of A* designed to reduce the number of nodes expanded in grid-based pathfinding.
 
   
 
@@ -66,9 +58,7 @@
 
   
 
-- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of multiple pathfinding algorithms, which include A* and Fringe Search, in terms of execution time and memory usage.
-
-  
+- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of A* and Fringe Search pathfinding algorithms in terms of execution time and memory usage.
 
   
 

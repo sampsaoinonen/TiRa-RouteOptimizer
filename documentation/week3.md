@@ -35,4 +35,5 @@ Both algorithms The A* algorithm and Fringe Search with Haversine heuristics in 
 | 18.9  | 2h         | Studying Fringe                                 |
 | 19.9  | 3h         | Building Fringe, Updating app to use both algorithms        |
 | 20.9  | 10h         | Refactoring program, usermenu, lint, testing, documentation |
-| **Total** | **17h**     |
+| 21.9  | 1h         | Expand tests for A* and Fringe, update documentation |
+| **Total** | **18h**     |
