@@ -2,7 +2,7 @@
 
   
 
-**RouteOptimizer** is a navigational tool that uses and compares A* and Fringe Search pathfinding algorithms to find the most efficient route in a city street network. The project allows users to simulate and visualize shortest path searches and evaluate the performance of used algorithms.
+**RouteOptimizer** is a navigational tool that uses and compares A* and Fringe Search pathfinding algorithms to find the most efficient route in Helsinki street network. The project allows users to simulate and visualize shortest path searches and evaluate the performance of used algorithms.
 
   
 
@@ -13,11 +13,13 @@ This project is part of the **Helsinki University course**: _Aineopintojen harjo
 ## Documentation
 - [Specifications](./documentation/specifications.md)
 - [Testing](./documentation/testing.md)
+- [Implementation](./documentation/implementation.md)
 
 ## Weekly Reports
 - [Week 1](./documentation/week1.md)
 - [Week 2](./documentation/week2.md)
 - [Week 3](./documentation/week3.md)
+- [Week 4](./documentation/week4.md)
 
 ## Installation
 
@@ -35,9 +37,19 @@ In the virtual environment you can leave out poetry run from following commands.
 ## Command Line Operations
 ### Testing
 
-Tests can be executed with the following command
+All tests can be executed with the following command
 ```bash
 poetry run pytest src
+```
+
+Unit tests can be executed with the following command
+```bash
+poetry run pytest src/test/unit
+```
+
+Integration tests can be executed with the following command
+```bash
+poetry run pytest src/test/integration
 ```
 
 ### Test coverage
@@ -58,5 +70,7 @@ poetry run coverage html
 ### Running the Main Program
 To run the main program, execute the following command:
 ```bash
-poetry run python src/main.py
+poetry run python src/app.py
 ```
+
+Wait for OSMnx maps to load and open your browser in **http://127.0.0.1:5000**
