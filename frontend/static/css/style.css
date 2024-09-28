@@ -1,0 +1,14 @@
+body { 
+    margin: 0; 
+    padding: 0; 
+}
+
+#map { 
+    height: 80vh; 
+    width: 100%; 
+}
+
+.info { 
+    padding: 10px;
+    background-color: #f1f1f1;
+}

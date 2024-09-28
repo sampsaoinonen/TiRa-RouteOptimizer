@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Finder with Leaflet and OpenStreetMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <h1>Select Start and Goal Points on the Map</h1>
+    <p>Click on the map to select the start and goal points. The Fringe Search and A* routes will be drawn between the points.</p>
+    
+    <div class="info">
+        <p id="fringe-length">Fringe Search Route Length: - | Time Taken: -</p>
+        <p id="astar-length">A* Route Length: - | Time Taken: -</p>
+    </div>
+    
+    <div id="map"></div>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
