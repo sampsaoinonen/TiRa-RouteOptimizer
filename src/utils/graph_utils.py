@@ -2,33 +2,6 @@ import math
 
 class GraphUtils:
     @staticmethod
-    def haversine(graph, node1, node2):
-        """ Calculates the Haversine distance between two geographic points.
-        https://rosettacode.org/wiki/Haversine_formula
-        
-        Args:
-            lat1 (float): Latitude of the first point.
-            lon1 (float): Longitude of the first point.
-            lat2 (float): Latitude of the second point.
-            lon2 (float): Longitude of the second point.
-
-        Returns:
-            float: The distance between the two points in kilometers.
-        """
-        lat1 = graph.nodes[node1]['y']
-        lon1 = graph.nodes[node1]['x']
-        lat2 = graph.nodes[node2]['y']
-        lon2 = graph.nodes[node2]['x']
-        r = 6371  # Earth's radius in kilometers
-        d_lat = math.radians(lat2 - lat1)
-        d_lon = math.radians(lon2 - lon1)
-        lat1 = math.radians(lat1)
-        lat2 = math.radians(lat2)
-        a = math.sin(d_lat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(d_lon / 2) ** 2
-        c = 2 * math.asin(math.sqrt(a))
-        return r * c
-
-    @staticmethod
     def euclidean(graph, node1, node2):
         """ Calculates the Euclidean distance between two points.
         
@@ -49,43 +22,30 @@ class GraphUtils:
         return distance
 
     @staticmethod
-    def manhattan(graph, node1, node2):
-        """ Calculates the Manhattan distance between two points.
+    def get_edge_length(graph, node1, node2):
+        """Fetches the length of the edge between two nodes in a graph.
         
         Args:
-            node1 (int): ID of the first node.
-            node2 (int): ID of the second node.
-
-        Returns:
-            float: The Manhattan distance between the two points.
-        """
-        x1 = graph.nodes[node1]['x']
-        y1 = graph.nodes[node1]['y']
-        x2 = graph.nodes[node2]['x']
-        y2 = graph.nodes[node2]['y']
-
-        # Manhattan distance formula
-        distance = abs(x2 - x1) + abs(y2 - y1)
-        return distance
-
-
-    @staticmethod
-    def get_edge_length(graph, current, neighbor):
-        """ Gets the length of the edge between current and neighbor in kilometers.
-        
-        Args:
-            current (int): Current node ID.
-            neighbor (int): Neighbor node ID.
+            graph (networkx.Graph or networkx.MultiGraph): The graph containing the edge.
+            node1 (int): The starting node ID.
+            node2 (int): The ending node ID.
         
         Returns:
-            float: Edge length in kilometers (converted from meters if needed).
+            float: The length of the edge if available, otherwise float('inf').
         """
-        edge_data = graph.get_edge_data(current, neighbor)
-
-        if isinstance(edge_data, dict):
-            if 'length' in edge_data:
-                return edge_data['length'] / 1000.0  # Convert meters to kilometers
-            # Handle OSMnx multi-edge graphs (parallel edges)
-            if 0 in edge_data:
-                return edge_data[0].get('length', 0) / 1000.0
-        return 0.0  # Default to 0 if no length is found
+        edge_data = graph.get_edge_data(node1, node2)
+        
+        if edge_data:
+            if graph.is_multigraph():
+                # If graph is MultiGraph, find the edge with the minimum length
+                min_length = min(
+                    (data.get('length', float('inf')) for key, data in edge_data.items()),
+                    default=float('inf')
+                )
+                return min_length
+            else:
+                # Single Graph case, check if 'length' attribute exists
+                return edge_data.get('length', float('inf'))
+        
+        # No valid edge exists
+        return float('inf')
