@@ -3,9 +3,10 @@ from algorithms.fringe_search import FringeSearchOSMnx
 import networkx as nx
 
 class TestFringeSearchOSMnx(unittest.TestCase):
+    """Unit tests for the Fringe Search algorithm implemented in FringeSearchOSMnx."""
 
     def setUp(self):
-        # Create a simple graph for testing
+        """Creates a simple graph for testing."""
         self.graph = nx.Graph()
         self.graph.add_edge(1, 2, length=1000.0)  # Distance in meters
         self.graph.add_edge(2, 3, length=2000.0)
@@ -18,42 +19,40 @@ class TestFringeSearchOSMnx(unittest.TestCase):
         self.graph.nodes[3]['x'], self.graph.nodes[3]['y'] = 60.1710, 24.9400
         self.graph.nodes[4]['x'], self.graph.nodes[4]['y'] = 60.1720, 24.9410
 
-        # Initialize Fringe Search algorithm with the graph
         self.fringe_search = FringeSearchOSMnx(self.graph)
 
     def test_find_path_fringe_search(self):
-        # Test finding the shortest path using Fringe Search algorithm
+        """Tests finding the shortest path using Fringe Search algorithm."""
         path, length = self.fringe_search.find_path(1, 4)
-        self.assertEqual(path, [1, 2, 3, 4])  # The shortest path is 1 -> 2 -> 3 -> 4
-        self.assertAlmostEqual(length, 4.0, delta=0.01)  # Total length in meters
+        self.assertEqual(path, [1, 2, 3, 4])
+        self.assertAlmostEqual(length, 4000, delta=1)
 
     def test_no_path_fringe_search(self):
-        # Remove edges to make the graph disconnected
+        """Tests that Fringe Search returns no path when the graph is disconnected."""
         self.graph.remove_edge(1, 4)
         self.graph.remove_edge(2, 3)
         path, length = self.fringe_search.find_path(1, 4)
         self.assertIsNone(path)  # Expect no path to be found
 
     def test_multiple_shortest_paths(self):
-        # Test the case where multiple shortest paths exist
+        """Tests the case where multiple shortest paths exist."""
         self.graph.add_edge(2, 4, length=3000.0)  # Another equally short path
         path, length = self.fringe_search.find_path(1, 4)
         self.assertIn(path, [[1, 2, 3, 4], [1, 2, 4]])
-        self.assertAlmostEqual(length, 4.00, delta=0.01)
+        self.assertAlmostEqual(length, 4000, delta=1)
 
     def test_start_node_not_in_graph(self):
-        # Test when start node is not in the graph
+        """Tests the case when the start node is not in the graph."""
         path, length = self.fringe_search.find_path(99, 4)  # Node 99 is not in the graph
-        print(path)
-        self.assertIsNone(path) 
+        self.assertIsNone(path)
 
     def test_goal_node_not_in_graph(self):
-        # Test when goal node is not in the graph
+        """Tests the case when the goal node is not in the graph."""
         path, length = self.fringe_search.find_path(1, 99)  # Node 99 is not in the graph
         self.assertIsNone(path)  # Expect no path to be found
     
     def test_single_node_graph(self):
-        # Test the case where the graph contains only one node
+        """Tests the case where the graph contains only one node."""
         graph = nx.Graph()
         graph.add_node(1, x=60.1699, y=24.9384)
         fringe_search = FringeSearchOSMnx(graph)
@@ -62,20 +61,19 @@ class TestFringeSearchOSMnx(unittest.TestCase):
         self.assertAlmostEqual(length, 0.0)
 
     def test_cycle_in_graph(self):
-        # Test handling of a cycle in the graph
+        """Tests handling of a cycle in the graph."""
         self.graph.add_edge(4, 1, length=500.0)  # Create a cycle with a shorter direct path
         path, length = self.fringe_search.find_path(1, 4)
-    
-        # Expect the algorithm to take the shorter path [1, 4]
         self.assertEqual(path, [1, 4])
-        self.assertAlmostEqual(length, 0.5, delta=0.01)  # Total length is 500 meters (0.5 km)
+        self.assertAlmostEqual(length, 500, delta=1)
 
     def test_no_weights_on_edges(self):
-        # Test the case where some edges have no weight assigned
-        self.graph.add_edge(2, 4)  # No length assigned
+        """Tests the case where some edges have no length attribute assigned."""
+        self.graph.add_edge(2, 4)  # No length attribute
         path, length = self.fringe_search.find_path(1, 4)
-        self.assertEqual(path, [1, 2, 4])
+        self.assertEqual(path, [1, 2, 3, 4])
+        self.assertAlmostEqual(length, 4000.0, delta=1)
+
 
 if __name__ == '__main__':
     unittest.main()
-
