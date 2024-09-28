@@ -5,7 +5,7 @@ class AStarOSMnx:
     """A* (A-star) algorithm implementation using OSMnx graph data.
     
     This class provides methods to find the shortest path between nodes in a graph using the
-    A* algorithm. It uses the Haversine distance for the heuristic function to estimate the
+    A* algorithm. It uses the Euclidean distance for the heuristic function to estimate the
     distance between geographic points.
 
     Attributes:
@@ -42,7 +42,7 @@ class AStarOSMnx:
         g_scores[start_node] = 0
 
         f_scores = {node: float("inf") for node in self.graph.nodes}
-        f_scores[start_node] = GraphUtils.haversine(self.graph, start_node, goal_node)
+        f_scores[start_node] = GraphUtils.euclidean(self.graph, start_node, goal_node)
 
         open_list = []
         heapq.heappush(open_list, (f_scores[start_node], start_node))
@@ -71,7 +71,7 @@ class AStarOSMnx:
                     came_from[neighbor] = current
                     g_scores[neighbor] = tentative_g_score
                     f_scores[neighbor] = (tentative_g_score +
-                                        GraphUtils.haversine(self.graph, neighbor, goal_node))
+                                        GraphUtils.euclidean(self.graph, neighbor, goal_node))
                     heapq.heappush(open_list, (f_scores[neighbor], neighbor))
 
         return None, float("inf")

@@ -6,7 +6,7 @@ class FringeSearchOSMnx:
     """Fringe Search algorithm implementation using OSMnx graph data.
     
     This class provides methods to find the shortest path between nodes in a graph 
-    using the Fringe Search algorithm. It uses the Haversine distance for the 
+    using the Fringe Search algorithm. It uses the Euclidean distance for the 
     heuristic function to estimate the distance between geographic points.
 
     Attributes:
@@ -37,7 +37,7 @@ class FringeSearchOSMnx:
             return None, float('inf')
 
         # Initialize fringe and cache
-        flimit = GraphUtils.haversine(self.graph, start_node, goal_node)
+        flimit = GraphUtils.euclidean(self.graph, start_node, goal_node)
         cache = {start_node: (0, None)}
         fringe = deque([start_node])
         found = False
@@ -49,7 +49,7 @@ class FringeSearchOSMnx:
             while fringe:
                 current = fringe.popleft()
                 g = cache[current][0]
-                h = GraphUtils.haversine(self.graph, current, goal_node)
+                h = GraphUtils.euclidean(self.graph, current, goal_node)
                 f = g + h
 
                 # If f exceeds the current flimit, defer this node to the next iteration
