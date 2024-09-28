@@ -12,7 +12,7 @@
 -  **Primary Language**: Python will be used to implement the core algorithms A* and Fringe Search, as well as handling the backend of the application.
   
 
--  **Frontend**: The user interface (UI) may be developed using **React** with **JavaScript** for rendering and interactivity of the street network and route visualizations.
+-  **Frontend**: The user interface (UI) is developed using **JavaScript** for rendering and interactivity of the street network and route visualizations.
 
   
 
@@ -66,7 +66,7 @@
 
   
 
--  **Input**: The program will take a street network as input, represented as a graph with nodes (intersections) and edges (streets). Users will select the starting and destination points, and optionally add obstacles such as closed roads or increased weights for traffic.
+-  **Input**: The program will use **OSMnx** to retrieve street network data as input, representing the city street network as a graph with nodes (intersections) and edges (streets). Users will interact with this network by selecting start and destination points. They may also optionally add obstacles such as closed roads or increased weights for traffic.
 
   
 
@@ -74,11 +74,9 @@
 
   
 
-- The selected algorithm (A* or Fringe Search) will find the shortest path between the start and destination points.
+- The algorithms A* and Fringe Search will find the shortest path between the start and destination points.
 
-  
-
-- The resulting path, along with performance metrics (e.g., execution time, memory usage), will be displayed to the user.
+- The resulting path, along with performance metrics (e.g., execution time, memory usage), will be displayed to the user on a map rendered via Leaflet and the OSMnx street network.
 
   
 
