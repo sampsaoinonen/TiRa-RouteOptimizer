@@ -1,4 +1,5 @@
 import unittest
+import random
 from algorithms.fringe_search import FringeSearchOSMnx
 import networkx as nx
 
@@ -73,6 +74,29 @@ class TestFringeSearchOSMnx(unittest.TestCase):
         path, length = self.fringe_search.find_path(1, 4)
         self.assertEqual(path, [1, 2, 3, 4])
         self.assertAlmostEqual(length, 4000.0, delta=1)
+    
+    def test_compare_fringe_search_dijkstra(self):
+        """Runs Fringe Search and Dijkstra algorithms 10 times with random start and goal nodes."""
+        for _ in range(10):
+            # Randomly select start and goal nodes from the graph
+            start_node = random.choice(list(self.graph.nodes))
+            goal_node = random.choice(list(self.graph.nodes))
+            
+            # Ensure start and goal are different
+            while start_node == goal_node:
+                goal_node = random.choice(list(self.graph.nodes))
+
+            # Test Fringe Search algorithm
+            fringe_path, fringe_length = self.fringe_search.find_path(start_node, goal_node)
+
+            # Test Dijkstra algorithm using NetworkX
+            dijkstra_length = nx.shortest_path_length(self.graph, source=start_node, target=goal_node, weight='length')
+
+            # Assert both algorithms return the same path length
+            if fringe_path:
+                self.assertAlmostEqual(fringe_length, dijkstra_length, delta=1)
+            else:
+                self.assertIsNone(fringe_path)
 
 
 if __name__ == '__main__':

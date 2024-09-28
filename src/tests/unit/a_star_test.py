@@ -42,29 +42,6 @@ class TestAStarOSMnx(unittest.TestCase):
         self.assertIn(path, [[1, 2, 3, 4], [1, 2, 4]])
         self.assertAlmostEqual(length, 4000, delta=1)
 
-    def test_compare_astar_dijkstra(self):
-        """Runs A* and Dijkstra algorithms 10 times with random start and goal nodes."""
-        for _ in range(10):
-            # Randomly select start and goal nodes from the graph
-            start_node = random.choice(list(self.graph.nodes))
-            goal_node = random.choice(list(self.graph.nodes))
-            
-            # Ensure start and goal are different
-            while start_node == goal_node:
-                goal_node = random.choice(list(self.graph.nodes))
-
-            # Test A* algorithm
-            a_star_path, a_star_length = self.astar.find_path(start_node, goal_node)
-
-            # Test Dijkstra algorithm using NetworkX            
-            dijkstra_length = nx.shortest_path_length(self.graph, source=start_node, target=goal_node, weight='length')
-
-            # Assert both algorithms return the same path length
-            if a_star_path:
-                self.assertAlmostEqual(a_star_length, dijkstra_length, delta=1)
-            else:
-                self.assertIsNone(a_star_path)
-
     def test_start_node_not_in_graph(self):
         """Tests the case when the start node is not in the graph."""
         path, length = self.astar.find_path(99, 4)  # Node 99 is not in the graph
@@ -97,6 +74,29 @@ class TestAStarOSMnx(unittest.TestCase):
         self.graph.add_edge(2, 4, length=2000.0)
         path, length = self.astar.find_path(1, 4)
         self.assertEqual(path, [1, 2, 4])
+
+    def test_compare_astar_dijkstra(self):
+        """Runs A* and Dijkstra algorithms 10 times with random start and goal nodes."""
+        for _ in range(10):
+            # Randomly select start and goal nodes from the graph
+            start_node = random.choice(list(self.graph.nodes))
+            goal_node = random.choice(list(self.graph.nodes))
+            
+            # Ensure start and goal are different
+            while start_node == goal_node:
+                goal_node = random.choice(list(self.graph.nodes))
+
+            # Test A* algorithm
+            a_star_path, a_star_length = self.astar.find_path(start_node, goal_node)
+
+            # Test Dijkstra algorithm using NetworkX            
+            dijkstra_length = nx.shortest_path_length(self.graph, source=start_node, target=goal_node, weight='length')
+
+            # Assert both algorithms return the same path length
+            if a_star_path:
+                self.assertAlmostEqual(a_star_length, dijkstra_length, delta=1)
+            else:
+                self.assertIsNone(a_star_path)
 
 if __name__ == '__main__':
     unittest.main()
