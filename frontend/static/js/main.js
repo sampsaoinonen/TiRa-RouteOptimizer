@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var startMarker, goalMarker;
 var fringePolyline, aStarPolyline;
 var selectingStart = true;  // Start by selecting the start point
-var timeoutActive = false;  // Prevent fast consecutive selections
+var timeoutActive = false;  // Prevent fast consecutive selections that causes errors using Safari 
 
 /**
  * Updates the displayed route length and time taken for the given algorithm.
@@ -115,7 +115,7 @@ function onMapClick(e) {
         timeoutActive = true;
         setTimeout(function() {
             timeoutActive = false;
-        }, 500);
+        }, 10);
 
     } else {
         // Set the goal marker and request routes
@@ -164,7 +164,7 @@ function onMapClick(e) {
         timeoutActive = true;
         setTimeout(function() {
             timeoutActive = false;
-        }, 500);
+        }, 10);
     }
 }
 

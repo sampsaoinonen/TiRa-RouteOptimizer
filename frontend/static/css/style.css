@@ -12,3 +12,11 @@ body {
     padding: 10px;
     background-color: #f1f1f1;
 }
+
+#fringe-length {
+    color: blue; /* Fringe Search text in blue */
+}
+
+#astar-length {
+    color: red;  /* A* Search text in red */
+}
