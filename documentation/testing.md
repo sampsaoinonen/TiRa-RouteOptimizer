@@ -33,6 +33,7 @@ poetry run coverage report -m
 To generate a separate HTML file for the report:
 ```bash
 poetry run coverage html
+```
 
 ## Unit Testing Coverage
 
