@@ -153,4 +153,4 @@ The performance tests include code for generating plots that compare the executi
 
 #### An example of plot created by performance test
 
-![A_star vs Fringe_Search performance test](./documentation/images/A_star vs Fringe_Search performance test.png)  
+![A_star_vs_Fringe_Search_performance_test](./documentation/images/A_star_vs_Fringe_Search_performance_test.jpg)  
