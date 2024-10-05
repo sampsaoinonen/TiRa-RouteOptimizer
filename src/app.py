@@ -1,14 +1,19 @@
+import time
 from flask import Flask, request, jsonify
 from flask import send_from_directory
-import time
 from utils.osm_utils import download_osm_graph, get_nearest_node
 from algorithms.fringe_search import FringeSearchOSMnx
 from algorithms.a_star import AStarOSMnx
 
 app = Flask(__name__)
 
+# Define the places for which the OSMnx graphs are downloaded
+
+places = ['Helsinki, Finland', 'Espoo, Finland', 'Vantaa, Finland', 'Kauniainen, Finland']
+
 # Load the graph
-graph = download_osm_graph('Helsinki, Finland')
+
+graph = download_osm_graph(places)
 
 
 @app.route('/calculate-fringe-route', methods=['POST'])
