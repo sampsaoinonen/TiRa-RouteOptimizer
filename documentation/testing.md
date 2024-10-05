@@ -5,11 +5,11 @@
 
 | File                          | Stmts | Miss | Branch | BrPart | Cover | Missing        |
 |-------------------------------|-------|------|--------|--------|-------|----------------|
-| src/algorithms/a_star.py       | 40    | 0    | 20     | 0      | 100%  | -              |
-| src/algorithms/fringe_search.py| 51    | 0    | 22     | 0      | 100%  | -              |
-| src/utils/graph_utils.py       | 19    | 0    | 10     | 0      | 100%  | -              |
+| src/algorithms/a_star.py       | 50    | 0    | 20     | 0      | 100%  | -              |
+| src/algorithms/fringe_search.py| 56    | 0    | 20     | 0      | 100%  | -              |
+| src/utils/graph_utils.py       | 18    | 0    | 10     | 0      | 100%  | -              |
 | src/utils/osm_utils.py         | 5     | 0    | 0      | 0      | 100%  | -              |
-| **TOTAL**                      | **115** | **0**  | **52**   | **0**    | **100%** | -              |
+| **TOTAL**                      | **129** | **0**  | **50**   | **0**    | **100%** | -              |
 
 
 
@@ -19,10 +19,20 @@ To generate a test coverage report, use the following commands:
 poetry run coverage run --branch -m pytest src
 ```
 
+To generate a test coverage report **wihtout performance testing**: (Note that performance test takes couple minutes to finish)
+
+```bash
+poetry run coverage run --branch -m pytest src --ignore=src/tests/performance
+```
+
 For a summary of the results on the command line:
 ```bash
 poetry run coverage report -m
 ```
+
+To generate a separate HTML file for the report:
+```bash
+poetry run coverage html
 
 ## Unit Testing Coverage
 
@@ -119,3 +129,28 @@ To run these integration tests, use the following command:
 ```bash
 poetry run pytest src/tests/integration
 ```
+
+### Performance Testing Coverage
+
+Performance tests were added to compare A* and Fringe Search algorithms over 100 random routes using real-world geographic data from the Uusimaa region. These tests measure the execution time of each algorithm and compare the results with Dijkstra's algorithm to ensure correctness.
+
+#### Performance Tests Performed:
+- *Algorithm Comparison*: The performance tests focus on comparing the speed and accuracy of A* and Fringe Search algorithms over large maps using OSMnx data. In each test, the start and goal nodes are selected randomly, and the execution times of both algorithms are recorded.
+- *Execution Time and Path Length Comparison*: The paths found by A* and Fringe Search are compared to the lengths computed by Dijkstra's algorithm. The test results are plotted to visually compare the performance of both algorithms at different distances.
+
+#### How to Repeat the Performance Tests
+Performance tests can be executed using the following command:
+
+```bash
+poetry run pytest src/tests/performance
+```
+
+Note that this test takes couple minutes to finish.
+
+#### Plotting the Results
+
+The performance tests include code for generating plots that compare the execution times of both A* and Fringe Search algorithms. The results are plotted against the distances of the paths to provide a visual comparison of the algorithms' efficiency.
+
+#### An example of plot created by performance test
+
+![A_star vs Fringe_Search performance test](./documentation/images/A_star vs Fringe_Search performance test.png)  
