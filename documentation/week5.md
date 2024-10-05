@@ -35,5 +35,5 @@ It's going okay. The algorithms are pretty complex to understand at first sight 
 | 2.10  | 2h         | Writing peer review          |
 | 3.10  | 6h         | Commenting peer review, Trying to optimize Fringe, Refactoring and commenting algorithms        |
 | 4.10  | 4h         | Refactoring and commenting algorithms, Creating performance test|
-| 5.10  | 4h         | Creating performance test, Pylinting, Documentation update|
-| **Total** | **20h**     |
+| 5.10  | 6h         | Creating performance test, Pylinting, Documentation update|
+| **Total** | **22h**     |
