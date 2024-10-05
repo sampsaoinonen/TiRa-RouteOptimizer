@@ -18,6 +18,27 @@ The program consists of three main components:
 
 The program uses **integration tests**, **performance tests** and **unit tests** to ensure correctness of both algorithms and their utility functions. These tests compare the path lengths found by A* and Fringe Search with **Dijkstra’s algorithm** for validation. More on [testing](./testing.md) documentation.
 
+## Achieved Time and Space Complexities
+
+#### A*
+
+- **Time Complexity**: O((|E| + |V|) log |V|), where |E| is the number of edges and |V| is the number of nodes. This time complexity arises from the operations of the priority queue (e.g., heapq).
+- **Space Complexity**: O(|V|), because A* stores information for each node (g-values, f-values, and parent nodes).
+
+#### Fringe Search
+
+## Performance Comparison and O-Analysis
+The performance of A* and Fringe Search was analyzed through both unit and integration tests. Performance testing focused on comparing the execution time and memory usage of each algorithm on a large, real-world map (Uusimaa region).
+
+### Performance Results:
+
+- **A_star**: In most cases, A* was faster in terms of execution time, especially for shorter paths or when the graph had fewer complex connections.
+- **Fringe Search**: This algorithm showed a smaller memory footprint but was slower in some cases due to the deferred expansion mechanism, particularly on large graphs.
+
+Both algorithms were benchmarked against Dijkstra’s algorithm, which served as a reference for correctness and performance validation. While Dijkstra guarantees the shortest path, its lack of heuristic guidance makes it slower than both A* and Fringe Search.
+
+![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)  
+
 
 ## Use of Large Language Models (LLMs)
 
