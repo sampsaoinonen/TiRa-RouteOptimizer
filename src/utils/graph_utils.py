@@ -34,18 +34,16 @@ class GraphUtils:
             float: The length of the edge if available, otherwise float('inf').
         """
         edge_data = graph.get_edge_data(node1, node2)
-        
+
         if edge_data:
             if graph.is_multigraph():
                 # If graph is MultiGraph, find the edge with the minimum length
-                min_length = min(
+                return min(
                     (data.get('length', float('inf')) for key, data in edge_data.items()),
                     default=float('inf')
                 )
-                return min_length
-            else:
-                # Single Graph case, check if 'length' attribute exists
-                return edge_data.get('length', float('inf'))
-        
+            # Single Graph case, check if 'length' attribute exists
+            return edge_data.get('length', float('inf'))
+
         # No valid edge exists
         return float('inf')

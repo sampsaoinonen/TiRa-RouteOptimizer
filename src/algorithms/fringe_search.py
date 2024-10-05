@@ -29,7 +29,7 @@ class FringeSearchOSMnx:
         
         - g-value: The actual cost from the start node to the current node.
         - h-value: The heuristic estimate of the remaining cost from the current node to the goal.
-        - f-value: The sum of g-value and h-value (f = g + h), representing the estimated total cost.
+        - f-value: The sum of g-value and h-value(f = g + h), representing the estimated total cost.
 
         Nodes with an f-value above a threshold (flimit) are deferred to a future iteration.
 
