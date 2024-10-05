@@ -9,7 +9,7 @@
 **In this project:**
   
 
--  **Primary Language**: Python will be used to implement the core algorithms A* and Fringe Search, as well as handling the backend of the application.
+-  **Primary Language**: Python is being used to implement the core algorithms A* and Fringe Search, as well as handling the backend of the application with Flask.
   
 
 -  **Frontend**: The user interface (UI) is developed using **JavaScript** for rendering and interactivity of the street network and route visualizations.
@@ -84,7 +84,7 @@
 
   
 
-- Wikipedia articles on [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), and [Fringe Search](https://en.wikipedia.org/wiki/Fringe_search) on understanding of these algorithms.
+- Wikipedia articles on [A*](https://en.wikipedia.org/wiki/A*_search_algorithm), [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) and [Fringe Search](https://en.wikipedia.org/wiki/Fringe_search) on understanding of these algorithms. [Fringe Search study](https://webdocs.cs.ualberta.ca/~holte/Publications/fringe.pdf)
 
   
   
