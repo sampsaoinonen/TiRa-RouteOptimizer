@@ -6,7 +6,9 @@
 - Refactored A* and Fringe Search algorithms to improve readability with more comments and clearer code structure. This was also mentioned in peer review of my work.
 - Added performance test to compare A* and Fringe Search algorithms, verifying correctness with Dijkstra
 - Made different optimized versions of Fringe Search
+- Updated the app to use Helsinki capital region map instead of just Helsinki to highlight larger differences between algorithms
 - Pylinted the code
+
 
 ### How has the project progressed?
 It's going okay. The algorithms are pretty complex to understand at first sight so I tried to help the reading with comments and better structure. Hannu Kärnä suggested to performance test algorithms with bigger area and more repetitions(100) which I did. I tried to optimized Fringe with different ways but it's still losing to A* in speed.
