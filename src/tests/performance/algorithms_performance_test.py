@@ -103,6 +103,10 @@ class TestAlgorithmPerformance(unittest.TestCase):
         plt.title('Execution Time Comparison: A* vs Fringe Search')
         plt.legend()
         plt.grid(True)
+
+        # Save the plot as an image file
+        plt.savefig('test-results/performance_plot.png')
+        
         plt.show()
 
 

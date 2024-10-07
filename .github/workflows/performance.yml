@@ -29,3 +29,10 @@ jobs:
         with:
           name: performance-results-log
           path: test-results/performance-log.txt
+
+      # Save the plot as an artifact
+      - name: Save plot
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-plot
+          path: test-results/performance_plot.png
