@@ -21,9 +21,9 @@ jobs:
       - name: Run performance tests
         run: poetry run pytest -s src/tests/performance --junitxml=test-results/performance-report.xml
 
-      # Save the test results as artifacts
-      - name: Save test results
+      # Save the log output as an artifact
+      - name: Save log output
         uses: actions/upload-artifact@v3
         with:
-          name: performance-results
-          path: test-results/performance-report.xml
+          name: performance-results-log
+          path: test-results/performance-log.txt
