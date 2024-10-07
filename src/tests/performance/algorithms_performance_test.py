@@ -65,7 +65,7 @@ class TestAlgorithmPerformance(unittest.TestCase):
         try:
             dijkstra_length = nx.shortest_path_length(self.graph, source=start_node, target=goal_node, weight='length')
         except nx.NetworkXNoPath:
-            dijkstra_length = None
+            dijkstra_length = float('inf')
 
         # Validate A* result
         if a_star_length is not None:
