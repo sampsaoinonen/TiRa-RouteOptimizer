@@ -1,0 +1,29 @@
+name: Performance Test
+
+# workflow_dispatch allows you to run the workflow manually
+on:
+  workflow_dispatch:
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run performance tests
+        run: poetry run pytest -s src/tests/performance --junitxml=test-results/performance-report.xml
+
+      # Save the test results as artifacts
+      - name: Save test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results
+          path: test-results/performance-report.xml
