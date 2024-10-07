@@ -18,8 +18,10 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+       - name: Create test results directory
+        run: mkdir -p test-results
       - name: Run performance tests
-        run: poetry run pytest -s src/tests/performance --junitxml=test-results/performance-report.xml
+        run: poetry run pytest -s src/tests/performance | tee test-results/performance-log.txt
 
       # Save the log output as an artifact
       - name: Save log output
