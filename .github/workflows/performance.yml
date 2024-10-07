@@ -18,7 +18,7 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
-       - name: Create test results directory
+      - name: Create test results directory
         run: mkdir -p test-results
       - name: Run performance tests
         run: poetry run pytest -s src/tests/performance | tee test-results/performance-log.txt
