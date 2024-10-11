@@ -1,7 +1,8 @@
 # RouteOptimizer
 
 ![GHA workflow badge](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/actions/workflows/main.yml/badge.svg) [![codecov](https://codecov.io/github/sampsaoinonen/TiRa-RouteOptimizer/graph/badge.svg?token=j15hmzwRCQ)](https://codecov.io/github/sampsaoinonen/TiRa-RouteOptimizer)
-  
+
+![Animated gif](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/documentation/images/using_the_app.gif)
   
 
 **RouteOptimizer** is a navigational tool that uses and compares A* and Fringe Search pathfinding algorithms to find the most efficient route in [Helsinki capital region](https://en.wikipedia.org/wiki/Helsinki_capital_region) street network. The project allows users to simulate and visualize shortest path searches and evaluate the performance of used algorithms.
