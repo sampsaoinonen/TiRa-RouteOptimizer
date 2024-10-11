@@ -75,6 +75,14 @@ class TestAStarOSMnx(unittest.TestCase):
         path, length = self.astar.find_path(1, 4)
         self.assertEqual(path, [1, 2, 4])
 
+    def test_no_valid_path(self):
+        """Tests the case where there is no valid path due to isolated nodes."""
+        self.graph.add_node(99)  # Add isolated node
+        path, length = self.astar.find_path(1, 99)  # Node 99 is not connected
+        self.assertIsNone(path)
+        self.assertEqual(length, float('inf'))
+
+
     def test_compare_astar_dijkstra(self):
         """Runs A* and Dijkstra algorithms 10 times with random start and goal nodes."""
         for _ in range(10):

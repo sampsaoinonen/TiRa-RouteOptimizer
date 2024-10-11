@@ -74,6 +74,13 @@ class TestFringeSearchOSMnx(unittest.TestCase):
         path, length = self.fringe_search.find_path(1, 4)
         self.assertEqual(path, [1, 2, 3, 4])
         self.assertAlmostEqual(length, 4000.0, delta=1)
+
+    def test_no_valid_path(self):
+        """Tests the case where there is no valid path due to isolated nodes."""
+        self.graph.add_node(99)  # Add isolated node
+        path, length = self.fringe_search.find_path(1, 99)  # Node 99 is not connected
+        self.assertIsNone(path)
+        self.assertEqual(length, float('inf'))
     
     def test_compare_fringe_search_dijkstra(self):
         """Runs Fringe Search and Dijkstra algorithms 10 times with random start and goal nodes."""

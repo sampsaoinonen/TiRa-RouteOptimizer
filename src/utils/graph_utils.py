@@ -12,10 +12,14 @@ class GraphUtils:
         Returns:
             float: The Euclidean distance between the two points.
         """
-        x1 = graph.nodes[node1]['x']
-        y1 = graph.nodes[node1]['y']
-        x2 = graph.nodes[node2]['x']
-        y2 = graph.nodes[node2]['y']
+        try:
+            x1 = graph.nodes[node1]['x']
+            y1 = graph.nodes[node1]['y']
+            x2 = graph.nodes[node2]['x']
+            y2 = graph.nodes[node2]['y']
+        except KeyError:
+            return float('inf')  # If coordinates are missing, return infinity
+
 
         # Euclidean distance formula
         distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
