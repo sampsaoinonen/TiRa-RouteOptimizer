@@ -1,6 +1,7 @@
 import unittest
 import random
 import time
+import os
 import osmnx as ox
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -104,9 +105,12 @@ class TestAlgorithmPerformance(unittest.TestCase):
         plt.legend()
         plt.grid(True)
 
+        # Ensure the directory exists before saving the plot
+        os.makedirs('test-results', exist_ok=True)
+
         # Save the plot as an image file
         plt.savefig('test-results/performance_plot.png')
-        
+
         plt.show()
 
 
