@@ -46,7 +46,7 @@ http://127.0.0.1:5000
 
 ## Using the Application
 
-![Animated gif](./documentation/images/using_the_app.gif)
+![Animated gif](./images/using_the_app.gif)
 
 - Select a start point and a goal point on the map.
 - The app will calculate and display routes found using the A* and Fringe Search algorithms. 
