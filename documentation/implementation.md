@@ -25,7 +25,10 @@ The program uses **integration tests**, **performance tests** and **unit tests**
 - **Time Complexity**: O((|E| + |V|) log |V|), where |E| is the number of edges and |V| is the number of nodes. This time complexity arises from the operations of the priority queue (e.g., heapq).
 - **Space Complexity**: O(|V|), because A* stores information for each node (g-values, f-values, and parent nodes).
 
-#### Fringe Search
+#### Fringe Search Algorithm
+
+- **Time Complexity**: The worst-case complexity is similar to A* in terms of node exploration but defers some expansions to future iterations, which can sometimes increase time overhead.
+- **Space Complexity**: O(|V|), but it can be more memory-efficient than A* in practice due to how it manages the frontier (or fringe) nodes.
 
 ## Performance Comparison and O-Analysis
 The performance of A* and Fringe Search was analyzed through both unit and integration tests. Performance testing focused on comparing the execution time and memory usage of each algorithm on a large, real-world map (Uusimaa region).
@@ -37,7 +40,16 @@ The performance of A* and Fringe Search was analyzed through both unit and integ
 
 Both algorithms were benchmarked against Dijkstra’s algorithm, which served as a reference for correctness and performance validation. While Dijkstra guarantees the shortest path, its lack of heuristic guidance makes it slower than both A* and Fringe Search.
 
+### Achieved Results:
 ![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)  
+
+## Limitations and Suggestions for Improvements
+
+1. **Optimization of Fringe Search**: Despite numerous attempts to optimize Fringe Search, it remains slower than A* in most cases. Some kind of hybrid approaches could improve its speed but it can be controversal if the algorithm can be labeled as Fringe Search after all the changes.
+2. **Handling larger graphs**: The current implementation processes medium to large graphs, but for very large geographic regions, further memory optimizations or parallel processing techniques could improve performance.
+3. **GUI enhancements**: The frontend could be enhanced with more interactive features, such as dynamically updating the routes when the user choose between walk, bike or car routes.
+4. **Monitoring memory usage**:  Including a feature to monitor and display memory usage for different algorithms during the route calculation would provide users with more insights, especially in comparing the efficiency of the algorithms
+5. **Comparing heurestics**:  The application could be extended to allow users to choose and compare different heuristics, such as Manhattan, Euclidean, or Haversine distances. This would enable users to evaluate the performance and accuracy of the algorithms under different conditions and heuristics, providing a richer comparison between pathfinding strategies.
 
 
 ## Use of Large Language Models (LLMs)
@@ -47,7 +59,7 @@ Both algorithms were benchmarked against Dijkstra’s algorithm, which served as
 - **Best practices**: what to test for improved test coverage, how handle integration between frontend and backend components. etc.
 - **Bug finding**: Guidance on resolving issues mainly caused by type errors
 - **Available technologies**: Suggestions on different available technologies and their pros and cons(helped pick **Leaflet**, **OSMnx**)
-- **To explain**: To simplify parts of difficult scientific texts like in [fringe](https://webdocs.cs.ualberta.ca/~holte/Publications/fringe.pdf) and explain code/algorithms with comments and examples.
+- **To simplify and explain**: To simplify parts of difficult scientific texts like in [fringe](https://webdocs.cs.ualberta.ca/~holte/Publications/fringe.pdf) and explain code/algorithms with comments and examples.
 
 
 

@@ -17,6 +17,7 @@ This project is part of the **Helsinki University course**: _Aineopintojen harjo
 - [Specifications](./documentation/specifications.md)
 - [Testing](./documentation/testing.md)
 - [Implementation](./documentation/implementation.md)
+- [User Guide](./documentation/user_guide.md)
 
 ## Weekly Reports
 - [Week 1](./documentation/week1.md)
@@ -24,75 +25,61 @@ This project is part of the **Helsinki University course**: _Aineopintojen harjo
 - [Week 3](./documentation/week3.md)
 - [Week 4](./documentation/week4.md)
 - [Week 5](./documentation/week5.md)
+- [Week 6](./documentation/week6.md)
 
-## Installation
+# Quick Guide
+
+## Command Line Operations
+
+### Installation
 
 Clone the repository, navigate to the project's root directory and install the dependencies with the command:
 ```bash
 poetry install
 ```
-You can activate the virtual environment with the command:
+
+
+
+### Running the Main Program
+To run the main program, execute the following command:
 ```bash
-poetry shell
+poetry run invoke start
 ```
 
-In the virtual environment you can leave out poetry run from following commands.
+Wait for OSMnx maps to load and open your browser in **http://127.0.0.1:5000**
 
-## Command Line Operations
 ### Testing
 
 All tests can be executed with the following command
 ```bash
-poetry run pytest src
+poetry run invoke all-tests
 ```
 
 Unit tests can be executed with the following command
 ```bash
-poetry run pytest src/test/unit
+poetry run invoke unit-tests
 ```
 
 Integration tests can be executed with the following command
 ```bash
-poetry run pytest src/test/integration
+poetry run invoke integration-tests
 ```
 
 Performance tests can be executed with the following command
 
 ```bash
-poetry run pytest src/tests/performance
+poetry run invoke performance-tests
 ```
 
 Rest of the tests **wihtout performance testing**: (Note that performance test takes couple minutes to finish)
 
 ```bash
-poetry run pytest src --ignore=src/tests/performance
+poetry run invoke tests
 ```
 
 ### Test coverage
 
-To generate a test coverage report, use the following commands:
+To generate a test coverage report as html and show in terminal, use the following commands:
 ```bash
-poetry run coverage run --branch -m pytest src
+poetry run invoke coverage-report
 ```
-
-To generate a test coverage report **wihtout performance testing**: (Note that performance test takes couple minutes to finish)
-
-```bash
-poetry run coverage run --branch -m pytest src --ignore=src/tests/performance
-```
-
-For a summary of the results on the command line:
-```bash
-poetry run coverage report -m
-```
-To generate a separate HTML file for the report:
-```bash
-poetry run coverage html
-```
-### Running the Main Program
-To run the main program, execute the following command:
-```bash
-poetry run python src/app.py
-```
-
-Wait for OSMnx maps to load and open your browser in **http://127.0.0.1:5000**

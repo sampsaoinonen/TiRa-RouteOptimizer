@@ -7,32 +7,27 @@
 |-------------------------------|-------|------|--------|--------|-------|----------------|
 | src/algorithms/a_star.py       | 50    | 0    | 20     | 0      | 100%  | -              |
 | src/algorithms/fringe_search.py| 56    | 0    | 20     | 0      | 100%  | -              |
-| src/utils/graph_utils.py       | 18    | 0    | 10     | 0      | 100%  | -              |
+| src/utils/graph_utils.py       | 21    | 0    | 10     | 0      | 100%  | -              |
 | src/utils/osm_utils.py         | 5     | 0    | 0      | 0      | 100%  | -              |
-| **TOTAL**                      | **129** | **0**  | **50**   | **0**    | **100%** | -              |
+| **TOTAL**                      | **132** | **0**  | **50**   | **0**    | **100%** | -              |
 
 
 
 
 To generate a test coverage report, use the following commands:
 ```bash
-poetry run coverage run --branch -m pytest src
+poetry run invoke all-tests
 ```
 
 To generate a test coverage report **wihtout performance testing**: (Note that performance test takes couple minutes to finish)
 
 ```bash
-poetry run coverage run --branch -m pytest src --ignore=src/tests/performance
+poetry run invoke tests
 ```
 
-For a summary of the results on the command line:
+To generate a test coverage report as html and show in terminal, use the following commands:
 ```bash
-poetry run coverage report -m
-```
-
-To generate a separate HTML file for the report:
-```bash
-poetry run coverage html
+poetry run invoke coverage-report
 ```
 
 ## Unit Testing Coverage
@@ -85,7 +80,7 @@ The tests focus on verifying the behavior of graph traversal algorithms (A* and 
 Tests can be executed with the following command:
 
 ```bash
-poetry run pytest src/tests/unit 
+poetry run invoke unit-tests
 ```
 
 ## Integration Testing Coverage
@@ -128,7 +123,7 @@ Note that random.seed(42) is used in the integration tests to ensure that the sa
 To run these integration tests, use the following command:
 
 ```bash
-poetry run pytest src/tests/integration
+poetry run invoke integration-tests
 ```
 
 ### Performance Testing Coverage
@@ -143,7 +138,7 @@ Performance tests were added to compare A* and Fringe Search algorithms over 100
 Performance tests can be executed using the following command:
 
 ```bash
-poetry run pytest src/tests/performance
+poetry run invoke performance-tests
 ```
 
 Note that this test takes couple minutes to finish.

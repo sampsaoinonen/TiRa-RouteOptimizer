@@ -58,7 +58,7 @@
 
   
 
-- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of A* and Fringe Search pathfinding algorithms in terms of execution time and memory usage.
+- The primary problem is finding the shortest and most efficient path between two points (intersections) in a city street network. The project will compare the efficiency of A* and Fringe Search pathfinding algorithms in terms of execution time and shortest path.
 
   
 
