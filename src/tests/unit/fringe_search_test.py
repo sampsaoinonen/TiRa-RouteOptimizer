@@ -83,8 +83,8 @@ class TestFringeSearchOSMnx(unittest.TestCase):
         self.assertEqual(length, float('inf'))
     
     def test_compare_fringe_search_dijkstra(self):
-        """Runs Fringe Search and Dijkstra algorithms 10 times with random start and goal nodes."""
-        for _ in range(10):
+        """Runs Fringe Search and Dijkstra algorithms 100 times with random start and goal nodes."""
+        for _ in range(100):
             # Randomly select start and goal nodes from the graph
             start_node = random.choice(list(self.graph.nodes))
             goal_node = random.choice(list(self.graph.nodes))
