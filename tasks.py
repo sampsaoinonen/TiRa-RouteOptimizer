@@ -25,12 +25,13 @@ def unit_tests(c):
 def integration_tests(c):
     """Run the integration tests."""
     c.run("poetry run coverage run --branch -m pytest -s src/tests/integration", pty=True)
-    
+
 @task
 def performance_tests(c):
     """Run performance tests, save plot and performance-log in /test-results"""
     c.run("mkdir -p test-results") # Create test-results directory if not exist
-    c.run("poetry run coverage run --branch -m pytest -s src/tests/performance | tee test-results/performance-log.txt", pty=True)
+    c.run("poetry run pytest -s src/tests/performance | tee test-results/performance-log.txt", pty=True)
+
 @task
 def lint(c):
     """Run Pylint with a min 9.8/10 rating."""
