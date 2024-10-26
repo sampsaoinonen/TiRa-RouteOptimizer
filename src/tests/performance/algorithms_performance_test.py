@@ -12,9 +12,17 @@ class TestAlgorithmPerformance(unittest.TestCase):
     """Performance test comparing Fringe Search and A* using the Uusimaa graph."""
 
     def setUp(self):
-        """Downloads the OSMnx graph of Uusimaa region for performance testing."""
-        print("Downloading the Uusimaa graph...")
-        self.graph = ox.graph_from_place('Uusimaa, Finland', network_type='drive')
+        """Checks for a local OSMnx graph Uusimaa map file, or downloads it if not available."""
+        map_file = "performance_test_map.graphml"
+        
+        if os.path.exists(map_file):
+            print("Loading the Uusimaa graph from a local file...")
+            self.graph = ox.load_graphml(map_file)
+        else:
+            print("Downloading the Uusimaa graph...")
+            self.graph = ox.graph_from_place('Uusimaa, Finland', network_type='drive')
+            ox.save_graphml(self.graph, map_file)  # Save the graph for future use
+
         self.a_star = AStarOSMnx(self.graph)
         self.fringe_search = FringeSearchOSMnx(self.graph)
 
