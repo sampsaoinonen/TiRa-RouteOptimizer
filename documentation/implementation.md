@@ -18,6 +18,12 @@ The program consists of three main components:
 
 The program uses **integration tests**, **performance tests** and **unit tests** to ensure correctness of both algorithms and their utility functions. These tests compare the path lengths found by A* and Fringe Search with **Dijkstra’s algorithm** for validation. More on [testing](./testing.md) documentation.
 
+## Fringe Search versions
+
+In the article, the Fringe Search algorithm used a doubly linked list as its data structure. I implemented several versions of this approach myself, which produced correct results according to the tests. However, it performed at best as well as the final deque (double-ended queue) solution, and on some routes, it was noticeably slower. For this reason, I decided to use Python's native deque due to its slightly simpler structure and because, as a built-in data structure, it doesn't need to be tested separately.
+
+I also experimented with creating a modified version of Fringe Search, which can be found in the branch [fringe_with_heuristic_cache](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache). Categorizing this version as Fringe Search can be, however, questionable in some ways. Fringe Search does not seem to typically employ heuristic caching, as it focuses on exploring nodes iteratively by thresholding f values without pre-computed lookups for efficiency. Thus, the introduction of a heuristic cache changes the algorithm's structure and prioritization strategy, potentially blurring the boundaries of what can be called an Fringe Search. Anyway this version outperformed more pseudocode-like version of Fringe as can be seen in the graps below.
+
 ## Achieved Time and Space Complexities
 
 #### A*
@@ -38,10 +44,18 @@ The performance of A* and Fringe Search was analyzed through both unit and integ
 - **A_star**: In most cases, A* was faster in terms of execution time, especially for shorter paths or when the graph had fewer complex connections.
 - **Fringe Search**: This algorithm showed a smaller memory footprint but was slower in some cases due to the deferred expansion mechanism, particularly on large graphs.
 
-Both algorithms were benchmarked against Dijkstra’s algorithm, which served as a reference for correctness and performance validation. While Dijkstra guarantees the shortest path, its lack of heuristic guidance makes it slower than both A* and Fringe Search.
+Both algorithms were benchmarked against NetworkX's implementation of Dijkstra’s algorithm, which was used as a reference to validate correctness.
 
 ### Achieved Results:
-![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)  
+
+**A_star vs Fringe Search**
+
+![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)
+
+**A_star vs Fringe Search with Heuristic Cache**
+
+![A_star_vs_Fringe_with_heuristic_cache_performance_test](./images/A_star_vs_Fringe_with_heuristic_cache_performance_test.jpg)  
+
 
 ## Limitations and Suggestions for Improvements
 
