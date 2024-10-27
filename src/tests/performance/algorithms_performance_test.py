@@ -104,8 +104,8 @@ class TestAlgorithmPerformance(unittest.TestCase):
         distances_sorted, a_star_times_sorted, fringe_times_sorted = zip(*sorted_data)
 
         plt.figure(figsize=(10, 6))
-        plt.plot(distances_sorted, a_star_times_sorted, label="A* Execution Time", color='blue', marker='o', markersize=5)
-        plt.plot(distances_sorted, fringe_times_sorted, label="Fringe Search Execution Time", color='red', marker='o', markersize=5)
+        plt.plot(distances_sorted, a_star_times_sorted, label="A* Execution Time", color='red', marker='o', markersize=5)
+        plt.plot(distances_sorted, fringe_times_sorted, label="Fringe Search Execution Time", color='blue', marker='o', markersize=5)
 
         plt.xlabel('Distance (km)')
         plt.ylabel('Execution Time (seconds)')
