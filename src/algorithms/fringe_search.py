@@ -11,6 +11,8 @@ class FringeSearchOSMnx:
 
     Attributes:
         graph (networkx.Graph): The street network graph from OSMnx.
+        heuristic_cache (dict): A cache to store precomputed heuristic values between nodes,
+                                used to speed up the algorithm by avoiding redundant calculations.
     """
     def __init__(self, graph):
         """Initializes FringeSearchOSMnx with the provided graph.
@@ -19,6 +21,7 @@ class FringeSearchOSMnx:
             graph (networkx.Graph): A NetworkX graph representing the street network.
         """
         self.graph = graph
+        self.heuristic_cache = {}
 
     def find_path(self, start_node, goal_node):
         """Finds the shortest path using the Fringe Search algorithm.
@@ -47,7 +50,7 @@ class FringeSearchOSMnx:
             return None, float('inf')
 
         # Initialize the first threshold (flimit) using the heuristic from the start to the goal
-        flimit = GraphUtils.euclidean(self.graph, start_node, goal_node)
+        flimit = self.get_heuristic(start_node, goal_node)
 
         # Cache stores g-values (actual cost from start) and parent of each visited node
         cache = {start_node: (0, None)}
@@ -69,6 +72,22 @@ class FringeSearchOSMnx:
             # Move to the next iteration with updated fringe and flimit
             fringe = next_fringe
             flimit = fmin
+
+    def get_heuristic(self, node, goal_node):
+        """Gets the heuristic value for a node, using a cache.
+
+        Args:
+            node (int): The current node ID.
+            goal_node (int): The goal node ID.
+
+        Returns:
+            float: The heuristic value (Euclidean distance).
+        """
+        if node in self.heuristic_cache:
+            return self.heuristic_cache[node]
+        h = GraphUtils.euclidean(self.graph, node, goal_node)
+        self.heuristic_cache[node] = h
+        return h
 
     def process_fringe(self, fringe, goal_node, flimit, cache):
         """Processes nodes in the fringe, expanding and evaluating neighbors.
@@ -93,7 +112,7 @@ class FringeSearchOSMnx:
         while fringe:
             current = fringe.popleft()
             g = cache[current][0]
-            h = GraphUtils.euclidean(self.graph, current, goal_node)
+            h = self.get_heuristic(current, goal_node)
             f = g + h
 
             if f > flimit:
