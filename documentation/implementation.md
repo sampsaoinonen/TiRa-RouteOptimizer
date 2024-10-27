@@ -20,7 +20,7 @@ The program uses **integration tests**, **performance tests** and **unit tests**
 
 ## Fringe Search versions
 
-In the article, the Fringe Search algorithm used a doubly linked list as its data structure. I implemented several versions of this approach myself, which produced correct results according to the tests. However, it performed at best as well as the final deque (double-ended queue) solution, and on some routes, it was noticeably slower. For this reason, I decided to use Python's native deque due to its slightly simpler structure and because, as a built-in data structure, it doesn't need to be tested separately.
+In the [article](https://webdocs.cs.ualberta.ca/~holte/Publications/fringe.pdf), the Fringe Search algorithm used a doubly linked list as its data structure. I implemented several versions of this approach myself, which produced correct results according to the tests. However, it performed at best as well as the final deque (double-ended queue) solution, and on some routes, it was noticeably slower. For this reason, I decided to use Python's native deque due to its slightly simpler structure and because, as a built-in data structure, it doesn't need to be tested separately.
 
 I also experimented with creating a modified version of Fringe Search, which can be found in the branch [fringe_with_heuristic_cache](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache). Categorizing this version as Fringe Search can be, however, questionable in some ways. Fringe Search does not seem to typically employ heuristic caching, as it focuses on exploring nodes iteratively by thresholding f values without pre-computed lookups for efficiency. Thus, the introduction of a heuristic cache changes the algorithm's structure and prioritization strategy, potentially blurring the boundaries of what can be called an Fringe Search. Anyway this version outperformed more pseudocode-like version of Fringe as can be seen in the graps below.
 
@@ -46,13 +46,13 @@ The performance of A* and Fringe Search was analyzed through both unit and integ
 
 Both algorithms were benchmarked against NetworkX's implementation of Dijkstra’s algorithm, which was used as a reference to validate correctness.
 
-### Achieved Results:
+### Tested Results:
 
-**A_star vs Fringe Search**
+[**A_star vs Fringe Search**](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/)
 
 ![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)
 
-**A_star vs Fringe Search with Heuristic Cache**
+[**A_star vs Fringe Search with Heuristic Cache**](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache)
 
 ![A_star_vs_Fringe_with_heuristic_cache_performance_test](./images/A_star_vs_Fringe_with_heuristic_cache_performance_test.jpg)  
 
