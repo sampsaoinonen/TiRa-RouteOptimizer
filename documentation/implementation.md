@@ -66,6 +66,12 @@ Both algorithms were benchmarked against NetworkX's implementation of Dijkstra�
 4. **Monitoring memory usage**:  Including a feature to monitor and display memory usage for different algorithms during the route calculation would provide users with more insights, especially in comparing the efficiency of the algorithms
 5. **Comparing heurestics**:  The application could be extended to allow users to choose and compare different heuristics, such as Manhattan, Euclidean, or Haversine distances. This would enable users to evaluate the performance and accuracy of the algorithms under different conditions and heuristics, providing a richer comparison between pathfinding strategies.
 
+## Final Thoughts
+
+Exploring Fringe Search was interesting in many ways and helped deepen my understanding of pathfinding algorithms in general. The version closely following the pseudocode was clearly slower than the A* algorithm. The heuristic cache version was significantly faster than the pseudocode version, but, with a few exceptions, it still fell short of A* in performance.
+
+In the article, Fringe Search outperformed A* by some 10 to 40 percent, depending on the use of tiles or octiles. However, it’s important to note that this study focused on grid-based game pathfinding, not real-world maps like in this project. Additionally, other implementations of Fringe Search that I found (including those created in this course) have not surpassed A* in speed. Fringe Search, as it stands, isn’t widely used either. This might suggest that Fringe Search is quite academic and not commonly applied in real-world applications. Nevertheless, it was an educational project topic.
+
 
 ## Use of Large Language Models (LLMs)
 
