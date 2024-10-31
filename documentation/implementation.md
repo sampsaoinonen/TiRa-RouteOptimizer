@@ -4,9 +4,10 @@
 
 The program consists of three main components:
 
-1. **Algorithms**: This module contains the implementations of the **A\*** algorithm and the **Fringe Search** algorithm for finding the shortest path on a geographic graph. Both algorithms operate on graphs generated using OpenStreetMap (OSM) data, accessed through the **OSMnx** library.
+1. **Algorithms**: This module contains the implementations of the **A\*** algorithm and the **Fringe Search** algorithm for finding the shortest path on a geographic graph. Both algorithms operate on graphs generated using OpenStreetMap (OSM) data, accessed through the **OSMnx** library. Based on course instructors guidance, both algorithms use Euclidean distance as the heuristic for estimating shortest paths, as this heuristic is effective on planar maps.
+
    - **AStarOSMnx**: Implements the A\* algorithm with heuristic-based pathfinding, designed for geographic graphs. It utilizes Euclidean distance as the heuristic.
-   - **FringeSearchOSMnx**: Implements the Fringe Search algorithm, which is a more memory-efficient alternative to A\*, suitable for large graphs.
+   - **FringeSearchOSMnx**: Implements the Fringe Search algorithm, which is a more memory-efficient alternative to A\*, suitable for large graphs. It's also using the Euclidean distance as the heuristic.
    
 2. **Utility Functions**: Includes helper methods for calculating distances and manipulating graph data.
    - **graph_utils**: Contains functions for calculating distances (Euclidean) and computing edge lengths.
@@ -22,7 +23,7 @@ The program uses **integration tests**, **performance tests** and **unit tests**
 
 In the [article](https://webdocs.cs.ualberta.ca/~holte/Publications/fringe.pdf), the Fringe Search algorithm used a doubly linked list as its data structure. I implemented several versions of this approach myself, which produced correct results according to the tests. However, it performed at best as well as the final deque (double-ended queue) solution, and on some routes, it was noticeably slower. For this reason, I decided to use Python's native deque due to its slightly simpler structure and because, as a built-in data structure, it doesn't need to be tested separately.
 
-I also experimented with creating a modified version of Fringe Search, which can be found in the branch [fringe_with_heuristic_cache](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache). Categorizing this version as Fringe Search can be, however, questionable in some ways. Fringe Search does not seem to typically employ heuristic caching, as it focuses on exploring nodes iteratively by thresholding f values without pre-computed lookups for efficiency. Thus, the introduction of a heuristic cache changes the algorithm's structure and prioritization strategy, potentially blurring the boundaries of what can be called an Fringe Search. Anyway this version outperformed more pseudocode-like version of Fringe as can be seen in the graps below.
+I also experimented with creating a modified version of Fringe Search, which can be found in the branch [fringe_with_heuristic_cache](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache). Categorizing this version as Fringe Search can be, however, questionable in some ways. Fringe Search does not seem to typically employ heuristic caching, as it focuses on exploring nodes iteratively by thresholding f values without pre-computed lookups for efficiency. Thus, the introduction of a heuristic cache changes the algorithm's structure and prioritization strategy, potentially blurring the boundaries of what can be called an Fringe Search. Anyway this version outperformed more pseudocode-like version of Fringe as can be seen in the graphs below.
 
 ## Achieved Time and Space Complexities
 
