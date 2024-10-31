@@ -8,10 +8,9 @@ class TestAStarVsDijkstraOSMnx(unittest.TestCase):
     """Integration tests to compare A* and Dijkstra algorithms using OSMnx data."""
 
     def setUp(self):
-        """Downloads the OSMnx graph for Helsinki, Finland and sets a random seed."""
+        """Downloads the OSMnx graph for Helsinki, Finland."""
         self.graph = ox.graph_from_place('Helsinki, Finland', network_type='drive')
         self.astar = AStarOSMnx(self.graph)
-        random.seed(42)  # Set seed for reproducibility
 
     def test_compare_astar_dijkstra_osmnx(self):
         """Compare A* and Dijkstra algorithms with random start and goal nodes from OSMnx graph."""

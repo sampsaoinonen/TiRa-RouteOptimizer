@@ -8,10 +8,9 @@ class TestFringeSearchVsDijkstraOSMnx(unittest.TestCase):
     """Integration tests to compare Fringe Search and Dijkstra algorithms using OSMnx data."""
 
     def setUp(self):
-        """Set up the OSMnx graph and initialize the algorithms."""
+        """Downloads the OSMnx graph for Helsinki, Finland."""
         self.graph = ox.graph_from_place('Helsinki, Finland', network_type='drive')
         self.fringe_search = FringeSearchOSMnx(self.graph)
-        random.seed(42)  # Set seed for reproducibility
 
     def test_compare_fringe_dijkstra_osmnx(self):
         """Compare Fringe Search and Dijkstra algorithms with random start and goal nodes from OSMnx graph."""
