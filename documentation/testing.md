@@ -60,7 +60,7 @@ The tests focus on verifying the behavior of graph traversal algorithms (A* and 
 
 #### Comparison to Dijkstra:
 
-- **10 Random Tests**: Both A* and Fringe Search were tested with randomly selected start and goal nodes, and their results were compared with Dijkstra's algorithm to ensure correctness. Path lengths were compared within a tolerance of 1 m.
+- **100 Random Tests**: Both A* and Fringe Search were tested with randomly selected start and goal nodes, and their results were compared with Dijkstra's algorithm to ensure correctness. Path lengths were compared within a tolerance of 1 m.
 
 
 #### Utility Function Tests:
@@ -118,7 +118,6 @@ The integration tests focus on verifying the behavior of graph traversal algorit
   - **Invalid Coordinates**: Used arbitrary invalid coordinates (e.g., in the ocean) to verify the function’s robustness, ensuring it still returned a valid node.
 
 ### How to Repeat the Integration Tests
-Note that random.seed(42) is used in the integration tests to ensure that the same random start and goal nodes are selected in each test run, making the tests reproducible.
 
 To run these integration tests, use the following command:
 
@@ -147,6 +146,14 @@ Note that this test takes couple minutes to finish.
 
 The performance tests include code for generating plots that compare the execution times of both A* and Fringe Search algorithms. The results are plotted against the distances of the paths to provide a visual comparison of the algorithms' efficiency.
 
-#### An example of plot created by performance test
+#### Example plots created by performance tests
 
-![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)  
+[**A_star vs Fringe Search**](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/)
+
+![A_star_vs_Fringe_Search_performance_test](./images/A_star_vs_Fringe_Search_performance_test.jpg)
+
+[**A_star vs Fringe Search with Heuristic Cache**](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/tree/fringe_with_heuristic_cache)
+
+![A_star_vs_Fringe_with_heuristic_cache_performance_test](./images/A_star_vs_Fringe_with_heuristic_cache_performance_test.jpg)
+
+More on used Fringe Search algorithms in [implementation document](https://github.com/sampsaoinonen/TiRa-RouteOptimizer/blob/main/documentation/implementation.md#fringe-search-versions)
